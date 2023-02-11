@@ -1,0 +1,8 @@
+.elements {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 880px;
+    margin: 0 auto;
+    gap: 20px 17px;
+    justify-content: center;
+}

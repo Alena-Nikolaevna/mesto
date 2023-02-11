@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pages/index.css">
+    <title>Место</title>
+</head>
+<body class="page">
+
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+
+  <main class="content">
+
+    <section class="profile">
+      <img class="profile__avatar" src="images/Avatar.png" alt="Аватарка">
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button type="button" aria-label="Редактировать" class="profile__edit-button"></button>
+        <p class="profile__about">Исследователь океана</p>
+      </div>
+      <button type="button" aria-label="Добавить" class="profile__add-button"></button>
+    </section>
+
+    <section class="elements">
+
+      <div class="element">
+        <img class="element__image" src="images/coming-in-sunset.jpg" alt="Фотография заката">
+        <div class="element__container">
+          <h2 class="element__title">Заход солнца</h2>
+          <button class="element__like" type="button" aria-label="Поставить лайк" ></button>
+        </div>  
+      </div>
+
+      <div class="element">
+        <img class="element__image" src="images/sunset-in-the-fields.jpg" alt="Фотография заката">
+        <div class="element__container">
+          <h2 class="element__title">Закат в полях</h2>
+          <button class="element__like" type="button" aria-label="Поставить лайк" ></button>
+        </div>
+      </div>
+
+      <div class="element">
+        <img class="element__image" src="images/sunset-in-he-mountains.jpg" alt="Фотография заката">
+        <div class="element__container">
+          <h2 class="element__title">Закат в горах</h2>
+          <button class="element__like" type="button" aria-label="Поставить лайк" ></button>
+        </div>
+      </div>
+
+      <div class="element">
+        <img class="element__image" src="images/the-sky-at-sunset.jpg" alt="Фотография заката">
+        <div class="element__container">
+          <h2 class="element__title">Небо на закате</h2>
+          <button class="element__like" type="button" aria-label="Поставить лайк" ></button>
+        </div>
+      </div>
+
+      <div class="element">
+        <img class="element__image" src="images/at-sunset.jpg" alt="Фотография заката">
+        <div class="element__container">
+          <h2 class="element__title">На закате</h2>
+          <button class="element__like" type="button" aria-label="Поставить лайк" ></button>
+        </div>
+      </div>
+
+      <div class="element">
+        <img class="element__image" src="images/sunset-glow.jpg" alt="Фотография заката">
+        <div class="element__container">
+          <h2 class="element__title">Зарево заката</h2>
+          <button class="element__like" type="button" aria-label="Поставить лайк" ></button>
+        </div>
+      </div>
+                      
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__author">&copy; 2020 Mesto Russia</p>
+  </footer>
+    
+  <section class="popup-edit-profile">
+  
+    <div class="form-edit">
+      <img class="form-edit__image" src="images/Close-Icon.png" alt="Иконка сердечка">
+
+      <form class="form-edit__popup-container">
+            <h2 class='form-edit__heading'>Редактировать профиль</h2>
+
+            <fieldset class='form-edit__input-container'>
+              <input class="form-edit__item form-edit__item_type_name" type='text' 
+                value="Жак-Ив Кусто" placeholder='Имя' name='name' required>
+              <input class="form-edit__item form-edit__item_type_job" type='text' 
+                value="Исследователь океана" placeholder='О себе' name='about' required>
+            </fieldset>
+              
+            <fieldset class="form-edit__handlers">
+              <button type="submit" class="form-edit__button-submit">Сохранить</button>
+            </fieldset>
+     
+      </form>
+    </div>
+  </section>
+
+  <script src='pages/script.js'></script>
+
+</body>
+</html>

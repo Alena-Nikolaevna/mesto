@@ -1,0 +1,24 @@
+.form-edit__image {
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.form-edit__image:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 700px) {
+    .form-edit__image {
+        width: 20px;
+        height: 20px;
+        right: 0;
+        top: -36px;
+    }
+}
