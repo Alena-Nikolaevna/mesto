@@ -1,7 +1,7 @@
 .profile {
     display: flex;
-    flex-wrap: wrap;
     max-width: 880px;
+    width: 100%;
     align-items: center;
     margin: 40px auto 51px; 
 }
@@ -17,9 +17,8 @@
     .profile {
         flex-direction: column;
         margin: 42px auto 36px;
-        width: 282px;
-        min-height: 286px;
-        flex-wrap: nowrap;
+        max-width: 282px;
+        width: 100%;
         padding: 0;
     }
 }

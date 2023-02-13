@@ -5,11 +5,11 @@
     margin-left: auto;
     border: 2px solid #fff;
     border-radius: 2px;
-    background-image: url(../../../images/Vector+.png);
+    background-image: url(../../../images/Vector+.svg);
     background-repeat: no-repeat;
     background-size: 22px 22px;
     background-position: center;
-    background-color: #000;
+    background-color: transparent;
     padding: 0;
     cursor: pointer;
 }
