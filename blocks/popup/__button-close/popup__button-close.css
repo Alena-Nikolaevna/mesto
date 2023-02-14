@@ -8,9 +8,11 @@
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
-    background-image: url(../../../images/Close-Icon.png);
+    background-image: url(../../../images/Close-Icon.svg);
     background-color: transparent;
     padding: 0;
+    border: 0;
+    background-size: 32px 32px;
 }
 
 .popup__button-close:hover {
