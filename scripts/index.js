@@ -1,38 +1,26 @@
+/***************************************************************** 
+ Чтобы код был аккуратным и структурированным,
+ лучше придерживаться подобной структуры в будущем:
+     - Наверху файла объявляем переменные
+     - Затем функции
+     - Внизу файла реализуем добавление обработчиков
+******************************************************************/
+
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
-
 
 const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupTypeAddProfile = document.querySelector('.popup_type_add-profile');
 const popupTypeImage = document.querySelector('.popup_type_image');
 
-/*const popupButtonCloseEdit = document.querySelector('.popup__button-close_type_edit');
-const popupButtonCloseAdd = document.querySelector('.popup__button-close_type_add');
-const popupButtonCloseImage = document.querySelector('.popup__button-close_type_image');*/
 
-
-const popup = document.querySelector('.popup');
-const popupButtonCloseIcon = popup.querySelector('.popup__button-close');
-const formElement = popup.querySelector('.popup__form-edit-container');
+const formElementEdit = document.querySelector('.popup__form-edit-container');
 
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__about');
 
-const nameInput = formElement.querySelector('.popup__form-item_type_name');
-const jobInput = formElement.querySelector('.popup__form-item_type_job');
-
-/********************************************************************** */
-function openPopup(popup) {
-  
-  popup.classList.add('popup_opened');
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
+const nameInput = formElementEdit.querySelector('.popup__form-item_type_name');
+const jobInput = formElementEdit.querySelector('.popup__form-item_type_job');
 
 /*************************************************************************** */
 
@@ -49,24 +37,36 @@ const popups = document.querySelectorAll('.popup')
           }
       })
   });
+
+/********************************************************************** */
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+function openpopupTypeEditProfile() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  openPopup(popupTypeEditProfile);
+}
+
 /************************************************************************** */
 
 //ф-ция редактирования профиля(сохранить информацию)
-function handleFormSubmit(evt) {
+function handleFormSubmitEdit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(popup);
+  closePopup(popupTypeEditProfile);
 }
 
-formElement.addEventListener('submit', handleFormSubmit); //обработчик кнопки "сохранить"
+formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
 
-profileEditButton.addEventListener('click', () => openPopup(popupTypeEditProfile));
+profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', () => openPopup(popupTypeAddProfile));
-
-//popupButtonCloseEdit.addEventListener('click', () => closePopup(popupTypeEditProfile));
-//popupButtonCloseAdd.addEventListener('click', () => closePopup(popupTypeAddProfile));
-
 
 /************************************************************************* */
 
@@ -92,35 +92,6 @@ title.classList.add('card__title');
 const likeButton = document.createElement('button');
 likeButton.classList.add('card__like-bt');
 
-
-// массив карточек
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 /********************************************************************************** */
 
 // создаём карточку
@@ -140,33 +111,22 @@ function createCard(data) {
 
   //попап - изображение
   const cardImage = cardElement.querySelector('.card__image');
-
-  //cardImage.addEventListener('click', openpopupImage);
-
-  cardImage.addEventListener('click', () => {
-    popupImage.alt = data.name,
-    popupImage.src = data.link,
-    popupTitle.textContent = data.name,
-    openPopup(popupTypeImage);
-  });
-
-  //popupButtonCloseImage.addEventListener('click', () => closePopup(popupTypeImage));
+  cardImage.addEventListener('click', () => openpopupImage(data));
  
   return cardElement;
 }
 
-const popupContent = document.querySelector('.popup__content');
-const popupImage = popupContent.querySelector('.popup__image');
-const popupTitle = popupContent.querySelector('.popup__title');
+const contentPopupImage = document.querySelector('.popup__content');
+const fullImagePopup = contentPopupImage.querySelector('.popup__image');
+const titlePopupPhoto = contentPopupImage.querySelector('.popup__title');
 
-// если сделать отдельной ф-цией, нужно изучить
-
-/*function openpopupImage() {
-  popupImage.alt = data.name;
-  popupImage.src = data.link;
-  popupTitle.textContent = data.name,
-  openpopup(popupTypeImage);
-}*/
+// ф-ция попап-изображения
+function openpopupImage(data) {
+  fullImagePopup.alt = data.name;
+  fullImagePopup.src = data.link;
+  titlePopupPhoto.textContent = data.name,
+  openPopup(popupTypeImage);
+}
 
 /***************************************************************************** */
 
@@ -198,7 +158,7 @@ const formElementAdd = document.querySelector('.popup__form-edit-container_add')
 const imageNameInput = formElementAdd.querySelector('.popup__form-item_type_name');
 const linkInput = formElementAdd.querySelector('.popup__form-item_type_job');
 
-function renderCard() {
+function renderCard(elementsCards) {
   elementsCards.prepend(createCard( {
     name: imageNameInput.value,
 		link: linkInput.value,
@@ -208,15 +168,9 @@ function renderCard() {
 // ф-ция добавл. карточки через попап
 function handleFormSubmitAdd(evt) {
 	evt.preventDefault(); 
-  renderCard();
+  renderCard(elementsCards);
 	evt.target.reset();
 	closePopup(popupTypeAddProfile);
 }
 
 formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать"
-
-/*********** ********************************************************/
-	/*elementsCards.prepend(createCard({
-		name: imageNameInput.value,
-		link: linkInput.value,
-	}));*/
