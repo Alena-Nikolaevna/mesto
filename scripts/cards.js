@@ -24,4 +24,4 @@ const initialCards = [
       name: 'Зарево заката',
       link: 'https://images.unsplash.com/photo-1443916568596-df5a58c445e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80'
     }
-  ];  
+  ];
