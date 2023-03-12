@@ -190,8 +190,6 @@ function handleFormSubmitAdd(evt) {
 
 formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать"
 
-//////////
-
 enableValidation(validationContainer);
 
 
