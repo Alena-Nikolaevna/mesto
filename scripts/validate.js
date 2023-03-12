@@ -48,7 +48,12 @@
     // Найдём в текущей форме кнопку отправки
     const buttonElement = formElement.querySelector(container.submitButtonSelector);
     
-    
+    formElement.addEventListener('reset', () => { // собыите `reset` происходит когда вызывается `reset` у формы
+      setTimeout(() => {  // добавим таймаут, чтобы `toggleButtonState` вызвался уже после сохранения формы
+      toggleButtonState(inputList, buttonElement, container), 0 })
+    })
+
+
     inputList.forEach((inputElement) => {
            inputElement.addEventListener('input', function() {
             isValid(formElement, inputElement, container);
@@ -71,8 +76,10 @@
     if(hasInvalidInput(inputList)) {
       // сделай кнопку неактивной
       buttonElement.classList.add(container.inactiveButtonClass);
+      buttonElement.setAttribute('disabled', true);
     } else {
       // иначе сделай кнопку активной
       buttonElement.classList.remove(container.inactiveButtonClass);
+      buttonElement.removeAttribute('disabled');
     }
   }

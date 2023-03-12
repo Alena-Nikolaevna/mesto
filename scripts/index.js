@@ -54,7 +54,7 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.addEventListener('keydown', escClosePopup);
+  document.removeEventListener('keydown', escClosePopup);
 }
 
 function openpopupTypeEditProfile() {
@@ -87,25 +87,6 @@ profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 
 const elementsCards = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
-
-// template-элементы
-const cardEl = document.createElement('article');
-cardEl.classList.add('card');
-
-const photo = document.createElement('img');
-photo.classList.add('card__image');
-
-const deleteButton = document.createElement('button');
-deleteButton.classList.add('card__delete-bt');
-
-const container = document.createElement('div')
-container.classList.add('card__container');
-
-const title = document.createElement('h2');
-title.classList.add('card__title');
-
-const likeButton = document.createElement('button');
-likeButton.classList.add('card__like-bt');
 
 /********************************************************************************** */
 
