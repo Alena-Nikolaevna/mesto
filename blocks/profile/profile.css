@@ -4,7 +4,8 @@
     width: 100%;
     box-sizing: border-box;
     align-items: center;
-    margin: 40px auto 51px; 
+    margin: 40px auto 51px;
+    justify-content: flex-start; 
 }
 
 @media screen and (max-width: 918px) {

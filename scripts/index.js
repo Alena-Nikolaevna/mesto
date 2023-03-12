@@ -35,22 +35,37 @@ const popups = document.querySelectorAll('.popup')
           if (evt.target.classList.contains('popup__button-close')) {
                 closePopup(popup);
           }
-      })
+      });
   });
+
+// закрытие попапов кнопкой esc
+function escClosePopup(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpenedEsc = document.querySelector('.popup_opened');
+    closePopup(popupOpenedEsc);
+  }
+}
 
 /********************************************************************** */
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escClosePopup);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.addEventListener('keydown', escClosePopup);
 }
 
 function openpopupTypeEditProfile() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(popupTypeEditProfile);
+}
+
+function openPopupTypeAddProfile() {
+  formElementAdd.reset();
+  openPopup(popupTypeAddProfile);
 }
 
 /************************************************************************** */
@@ -66,7 +81,7 @@ function handleFormSubmitEdit(evt) {
 formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
-profileAddButton.addEventListener('click', () => openPopup(popupTypeAddProfile));
+profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 
 /************************************************************************* */
 
@@ -174,3 +189,10 @@ function handleFormSubmitAdd(evt) {
 }
 
 formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать"
+
+//////////
+
+enableValidation(validationContainer);
+
+
+
