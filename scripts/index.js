@@ -166,10 +166,10 @@ const createCard = (...args) => {
 
 
 //функция появления карточки
-const renderCard = (elementsCards) => {
-  const card = createCard(elementsCards, '#card-template', handleCardClick);
-  //elementsCards.prepend(card);
-  document.querySelector('.elements').prepend(card);
+const renderCard = (element) => {
+  const card = createCard(element, '#card-template', handleCardClick);
+  elementsCards.prepend(card);
+  //document.querySelector('.elements').prepend(card);
 }
 
 /*function renderCard(item) {
@@ -177,10 +177,10 @@ const renderCard = (elementsCards) => {
   
 }*/
 
-initialCards.forEach((elementsCards) => {
+initialCards.forEach((elements) => {
   //elements.append(createCard(item));;
  // document.querySelector('.elements').append(createCard(item));
- renderCard(elementsCards);
+ renderCard(elements);
 });
 
 
@@ -199,6 +199,7 @@ function handleFormSubmitAdd(evt) {
   
 	evt.target.reset();
 	closePopup(popupTypeAddProfile);
+  //validationAddCardForm.disableSubmitButton();
 }
 
 // создаём цикл, kt проходит по массиву по всем карточкам
@@ -237,9 +238,12 @@ formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обрабо�
 
 /******************************************************************** */
 
-//const newPopupTypeEditProfile = new FormValidator(validationContainer, popupTypeEditProfile);
-  
-  // newPopupTypeEditProfile.enableValidation();
+const newPopupTypeAddProfile = new FormValidator(validationContainer, popupTypeAddProfile)
+newPopupTypeAddProfile.enableValidation();
+
+
+const newPopupTypeEditProfile = new FormValidator(validationContainer, popupTypeEditProfile);
+  newPopupTypeEditProfile.enableValidation();
   
   const validationContainer = {
     formSelector: '.popup__form-edit-container',
@@ -250,7 +254,7 @@ formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обрабо�
     errorClass: 'popup__form-item-error_visible'
   }
   
-enableValidation(validationContainer);
+//enableValidation(validationContainer);
 
 /****************************************** */
 

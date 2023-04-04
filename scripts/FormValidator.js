@@ -58,21 +58,38 @@ export default class FormValidator {
     }
   
   
-    _disabledAddButtonElement(buttonElement) {
+    /*_disabledAddButtonElement(buttonElement) {
       // сделай кнопку неактивной
       buttonElement.classList.add(this._options.inactiveButtonClass);
       buttonElement.setAttribute('disabled', true);
-    }
+    }*/
   
   
-    _disabledRemoveButtonElement(buttonElement) {
+    /*_disabledRemoveButtonElement(buttonElement) {
       // иначе сделай кнопку активной
       buttonElement.classList.remove(this._options.inactiveButtonClass);
       buttonElement.removeAttribute('disabled');
-    }
+    }*/
   
-  
+
     _toggleButtonState(inputList, buttonElement) {
+      // Если есть хотя бы один невалидный инпут
+     if(this._hasInvalidInput(inputList)) {
+       // сделай кнопку неактивной
+       buttonElement.classList.add(this._options.inactiveButtonClass);
+       buttonElement.setAttribute('disabled', true);
+
+     } else {
+       // иначе сделай кнопку активной
+       buttonElement.classList.remove(this._options.inactiveButtonClass);
+       buttonElement.removeAttribute('disabled');
+     }
+    }
+
+
+
+  
+    /*_toggleButtonState(inputList, buttonElement) {
       // Если есть хотя бы один невалидный инпут
      if(this._hasInvalidInput(inputList)) {
        // сделай кнопку неактивной
@@ -81,7 +98,7 @@ export default class FormValidator {
        // иначе сделай кнопку активной
        this._disabledRemoveButtonElement(buttonElement);
      }
-   }
+   }*/
   
    
     _setEventListeners() {
@@ -108,6 +125,12 @@ export default class FormValidator {
       }
   
     }
+
+
+    /************************************ */
+
+  
+
     
     
     
