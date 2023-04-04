@@ -18,7 +18,7 @@ const popupTypeAddProfile = document.querySelector('.popup_type_add-profile');
 const popupTypeImage = document.querySelector('.popup_type_image');
 
 
-const formElementEdit = document.querySelector('.popup__form-edit-container');
+const formElementEdit = document.querySelector('.popup__form-edit-container');//1
 
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__about');
@@ -138,7 +138,7 @@ const titlePopupPhoto = contentPopupImage.querySelector('.popup__title');
 /************************************************** */
 
 // добавление карточки через попап(новое место)
-const formElementAdd = document.querySelector('.popup__form-edit-container_add');
+const formElementAdd = document.querySelector('.popup__form-edit-container_add'); //2
 const imageNameInput = formElementAdd.querySelector('.popup__form-item_type_name');
 const linkInput = formElementAdd.querySelector('.popup__form-item_type_job');
 
@@ -213,46 +213,42 @@ function handleFormSubmitAdd(evt) {
 });*/
 
 
-formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать"
+formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
 /************************************* */
 
-
-
-/*function rendersCard(elementsCards) {      
+/*function renderCard(elementsCards) {      
   elementsCards.prepend(createCard( {
     name: imageNameInput.value,
 		link: linkInput.value,
   }));
-}*/
+}
 
 // ф-ция добавл. карточки через попап
-/*function handleFormSubmitAdd(evt) {
+function handleFormSubmitAdd(evt) {
 	evt.preventDefault(); 
-  rendersCard(elementsCards);
+  renderCard(elementsCards);
 	evt.target.reset();
 	closePopup(popupTypeAddProfile);
 }*/
 
-
-
-
 /******************************************************************** */
+const validationContainer = {
+  formSelector: '.popup__form-edit-container',
+  inputSelector: '.popup__form-item',
+  submitButtonSelector: '.popup__form-button-submit',
+  inactiveButtonClass: 'popup__form-button-submit_disabled',
+  inputErrorClass: 'popup__form-item_type_error',
+  errorClass: 'popup__form-item-error_visible'
+}
+/***************** */
+const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
+newFormElementEdit.enableValidation();
 
-const newPopupTypeAddProfile = new FormValidator(validationContainer, popupTypeAddProfile)
-newPopupTypeAddProfile.enableValidation();
 
-
-const newPopupTypeEditProfile = new FormValidator(validationContainer, popupTypeEditProfile);
-  newPopupTypeEditProfile.enableValidation();
+const newFormElementAdd = new FormValidator(validationContainer, formElementAdd); //2
+newFormElementAdd.enableValidation();
   
-  const validationContainer = {
-    formSelector: '.popup__form-edit-container',
-    inputSelector: '.popup__form-item',
-    submitButtonSelector: '.popup__form-button-submit',
-    inactiveButtonClass: 'popup__form-button-submit_disabled',
-    inputErrorClass: 'popup__form-item_type_error',
-    errorClass: 'popup__form-item-error_visible'
-  }
+  
   
 //enableValidation(validationContainer);
 
