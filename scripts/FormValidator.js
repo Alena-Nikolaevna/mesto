@@ -50,7 +50,7 @@ export default class FormValidator {
       }
     }
   
-      //доделать _
+      //доделать ???
     _hasInvalidInput(inputList) {
       return inputList.some((inputElement) => {
         return !inputElement.validity.valid;
