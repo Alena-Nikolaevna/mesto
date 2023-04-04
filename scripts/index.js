@@ -145,8 +145,19 @@ const linkInput = formElementAdd.querySelector('.popup__form-item_type_job');
 /**************************************** */
 /*function createCard(data) {
   const card = new Card(data, '#card__template', handleCardClick);
-  return card.generateCard();
-}*/
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
+// помещаем(добавляем) карточку(и) в контейнер, созданный в html
+function addCardInContainer(card) {
+  elementsCards.append(createCard(card));
+ }
+
+// создаём цикл, kt проходит по массиву по всем карточкам
+initialCards.forEach((element) => {
+  addCardInContainer(element);
+});*/
 
 //cоздаем карточку  с помощью класса
 const createCard = (...args) => {
@@ -156,16 +167,27 @@ const createCard = (...args) => {
 
 //функция появления карточки
 const renderCard = (elementsCards) => {
-  const card = createCard(elementsCards, '#card__template', handleCardClick);
+  const card = createCard(elementsCards, '#card-template', handleCardClick);
   //elementsCards.prepend(card);
   document.querySelector('.elements').prepend(card);
 }
 
+/*function renderCard(item) {
+  document.querySelector('.elements').prepend(createCard(item));
+  
+}*/
 
 initialCards.forEach((elementsCards) => {
-  renderCard(elementsCards);
+  //elements.append(createCard(item));;
+ // document.querySelector('.elements').append(createCard(item));
+ renderCard(elementsCards);
 });
 
+
+
+
+
+/************ */
 function handleFormSubmitAdd(evt) {
 	evt.preventDefault(); 
 
@@ -178,10 +200,6 @@ function handleFormSubmitAdd(evt) {
 	evt.target.reset();
 	closePopup(popupTypeAddProfile);
 }
-
-
-
-
 
 // создаём цикл, kt проходит по массиву по всем карточкам
 /*initialCards.forEach((elementsCards) => {
