@@ -1,6 +1,5 @@
 .popup__form-item {
-    width: 100%;
-    margin: 30px auto 0;
+    width: 358px;
     padding: 0 0 9px;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
     border-top: none;
@@ -13,10 +12,7 @@
     font-style: normal;
     color: #000;
     box-sizing: border-box;
-}
-
-.popup__form-item:first-child {
-    margin-top: 0;
+    outline: none;
 }
 
 @media screen and (max-width: 700px) {

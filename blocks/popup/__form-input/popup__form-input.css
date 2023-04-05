@@ -5,7 +5,14 @@
     flex-direction: column;
     width: 358px;
     margin: 0 auto;
+    position: relative;
+    margin: 30px auto 0;
 }
+
+.popup__form-input:first-child {
+    margin-top: 0;
+}
+
 
 @media screen and (max-width: 700px) {
     .popup__form-input {
