@@ -11,13 +11,6 @@ export default class FormValidator {
     }
   
     enableValidation() {
-      /*const formList = Array.from(document.querySelectorAll(this._options.formSelector));
-      formList.forEach((formElement) => {
-        formElement.addEventListener('submit', (evt) => {
-          evt.preventDefault();
-        });
-      });*/
-      
       this._setEventListeners();
     }
   
@@ -113,7 +106,14 @@ export default class FormValidator {
        this._disabledRemoveButtonElement(buttonElement);
      }
     }*/
-
+    /********************************************* */
+   /* enableValidation() {
+      const formList = Array.from(document.querySelectorAll(this._options.formSelector));
+      formList.forEach((formElement) => {
+        formElement.addEventListener('submit', (evt) => {
+          evt.preventDefault();
+        });
+      });*/
     /****************************************************** */
      /*а для того ,чтобы проверить, потерялся ли контекс его всегда можно выводить в консоль
        (например перед вызовом this._isValid() написать лог this)*/

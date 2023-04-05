@@ -13,8 +13,3 @@
 .card__like-bt:hover {
     opacity: 0.5;
 }
-
-.card__like-bt_active {
-    opacity: 1;
-    background: url(https://code.s3.yandex.net/web-code/dom/heart-filled.svg) center no-repeat;
-  }

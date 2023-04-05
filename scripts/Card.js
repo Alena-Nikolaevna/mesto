@@ -32,15 +32,15 @@ export default class Card {
 
    this._setEventListeners();
 
-   this._element.querySelector('.card__image').src = this._link;   //присваиваем значения ссылки 
+   this._cardImage.src = this._link;   //присваиваем значения ссылки 
    this._element.querySelector('.card__title').textContent = this._name; //и имени карточки 
-   this._element.querySelector('.card__image').alt = this._name; //из массива карточек initialCards
+   this._cardImage.alt = this._name; //из массива карточек initialCards
 
    return this._element;
  }
 
  // создаём метод лайка
- _CardLike() {
+ _likeCard() {
    this._like.classList.toggle('card__like-bt_active');
  }
 
@@ -53,7 +53,7 @@ export default class Card {
  _setEventListeners() {
    //обработчик лайка
    this._like.addEventListener('click', () => {
-     this._CardLike();
+     this._likeCard();
    });
 
    //обработчик кнопки удаления карточки
