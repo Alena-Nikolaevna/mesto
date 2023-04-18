@@ -98,7 +98,7 @@ function openPopupTypeAddProfile() {
 
 //ф-ция редактирования профиля(сохранить информацию)
 function handleFormSubmitEdit(evt) {
-  evt.preventDefault();
+  //evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   newPopupTypeEditProfile.close();
