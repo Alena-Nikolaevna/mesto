@@ -6,11 +6,13 @@
      - Внизу файла реализуем добавление обработчиков
 ******************************************************************/
 import Card from '../components/Card.js';
+import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+
 import PopupWithForm from '../components/PopupWithForm.js';
-import UserInfo from '../components/UserInfo.js';
+
 import Popup from '../components/Popup.js';
 
 import {initialCards} from '../utils/initialCards.js';
@@ -83,7 +85,7 @@ const itemsCardList = new Section({items:initialCards, renderer:renderCard}, '.e
 itemsCardList.renderItems();
 /******************************** */
 
-const user = new UserInfo('.profile__name', '.profile__about');
+const user = new UserInfo({nameSelector: '.profile__name', aboutSelector: '.profile__about'});
 
 /************************************* */
 function openpopupTypeEditProfile() {
@@ -102,18 +104,19 @@ function openPopupTypeAddProfile() {
 //ф-ция редактирования профиля(сохранить информацию)
 function handleFormSubmitEdit(name, about) {
   //evt.preventDefault();
-  nameInput.value = name;
-  jobInput.value = about;
+  
   
   user.setUserInfo(name, about);
-  
+  nameInput.value = name;
+  jobInput.value = about;
+ 
   //profileName.textContent = nameInput.value;
   //profileJob.textContent = jobInput.value;
   newPopupTypeEditProfile.close();
   
 }
 
-
+console.log(user);
 /********************************************************************************** */
 function handleFormSubmitAdd() {
 	//evt.preventDefault(); 
