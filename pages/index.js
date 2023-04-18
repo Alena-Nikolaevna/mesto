@@ -86,12 +86,12 @@ itemsCardList.renderItems();
 function openpopupTypeEditProfile() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  popupTypeEditProfile.open();
+  newPopupTypeEditProfile.open();
 }
 
 function openPopupTypeAddProfile() {
   formElementAdd.reset();
-  popupTypeAddProfile.open();
+  newPopupTypeAddProfile.open();
 }
 
 /************************************************************************** */
@@ -101,22 +101,22 @@ function handleFormSubmitEdit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  popupTypeEditProfile.close();
+  newPopupTypeEditProfile.close();
 }
 
 
 /********************************************************************************** */
 function handleFormSubmitAdd(evt) {
-	evt.preventDefault(); 
+	//evt.preventDefault(); 
 
   const item = {
     name: imageNameInput.value,
 		link: linkInput.value,
   };
-  renderCard(item);
+ // renderCard(item);
   
-	evt.target.reset();
-	popupTypeAddProfile.close();
+	//evt.target.reset();
+	newPopupTypeAddProfile.close();
   //validationAddCardForm.disableSubmitButton();
 }
 
@@ -129,7 +129,8 @@ profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 
 /********************************************************************************** */
-
+const user = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__about'});
+/******************************* */
 const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
 newFormElementEdit.enableValidation();
 
@@ -140,5 +141,13 @@ newFormElementAdd.enableValidation();
 /** попап просмотра изображения */
 const popupWithImage  = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
+
+const newPopupTypeEditProfile  = new PopupWithForm ('.popup_type_edit-profile', handleFormSubmitEdit);
+newPopupTypeEditProfile.setEventListeners();
+
+const newPopupTypeAddProfile = new PopupWithForm ('.popup_type_add-profile', handleFormSubmitAdd);
+newPopupTypeAddProfile.setEventListeners();
+
+
 
 
