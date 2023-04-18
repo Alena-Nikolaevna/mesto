@@ -81,6 +81,9 @@ const renderCard = (element) => {
 // экземпляр класса Section, который отвечает за отрисовку элементов на странице
 const itemsCardList = new Section({items:initialCards, renderer:renderCard}, '.elements');
 itemsCardList.renderItems();
+/******************************** */
+
+const user = new UserInfo('.profile__name', '.profile__about');
 
 /************************************* */
 function openpopupTypeEditProfile() {
@@ -97,23 +100,29 @@ function openPopupTypeAddProfile() {
 /************************************************************************** */
 
 //ф-ция редактирования профиля(сохранить информацию)
-function handleFormSubmitEdit(evt) {
+function handleFormSubmitEdit(name, about) {
   //evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
+  nameInput.value = name;
+  jobInput.value = about;
+  
+  user.setUserInfo(name, about);
+  
+  //profileName.textContent = nameInput.value;
+  //profileJob.textContent = jobInput.value;
   newPopupTypeEditProfile.close();
+  
 }
 
 
 /********************************************************************************** */
-function handleFormSubmitAdd(evt) {
+function handleFormSubmitAdd() {
 	//evt.preventDefault(); 
 
   const item = {
     name: imageNameInput.value,
 		link: linkInput.value,
   };
- // renderCard(item);
+  renderCard(item);
   
 	//evt.target.reset();
 	newPopupTypeAddProfile.close();
@@ -122,14 +131,14 @@ function handleFormSubmitAdd(evt) {
 
 /***************************************** */
 
-formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
-formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
+//formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
+//formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 
 /********************************************************************************** */
-const user = new UserInfo({ nameSelector: '.profile__name', aboutSelector: '.profile__about'});
+
 /******************************* */
 const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
 newFormElementEdit.enableValidation();
