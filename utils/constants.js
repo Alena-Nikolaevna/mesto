@@ -1,11 +1,6 @@
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
 
-export const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
-export const popupTypeAddProfile = document.querySelector('.popup_type_add-profile');
-export const popupTypeImage = document.querySelector('.popup_type_image');
-
-
 export const formElementEdit = document.querySelector('.popup__form-edit-container');//1  PopupWithForm/ popup__form-item
 
 export const profileName = document.querySelector('.profile__name');
@@ -17,7 +12,6 @@ export const jobInput = formElementEdit.querySelector('.popup__form-item_type_jo
 /********************************************************************************** */
 
 export const elementsCards = document.querySelector('.elements');
-//const cardTemplate = document.querySelector('#card-template').content;
 
 /************************************************************************ */
 
@@ -28,10 +22,16 @@ export const linkInput = formElementAdd.querySelector('.popup__form-item_type_jo
 
 /************************************************************************* */
 
-const contentPopupImage = document.querySelector('.popup__content');
-export const fullImagePopup = contentPopupImage.querySelector('.popup__image'); //PopupWithImage
-export const titlePopupPhoto = contentPopupImage.querySelector('.popup__title'); //PopupWithImage
+//const contentPopupImage = document.querySelector('.popup__content');
+//export const fullImagePopup = contentPopupImage.querySelector('.popup__image'); //PopupWithImage
+//export const titlePopupPhoto = contentPopupImage.querySelector('.popup__title'); //PopupWithImage
 
 /****************************************************************************** */
 //универс-ая ф-ция закрытия попапов
-export const popups = document.querySelectorAll('.popup')
+//export const popups = document.querySelectorAll('.popup')
+
+//const cardTemplate = document.querySelector('#card-template').content;
+
+//export const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
+//export const popupTypeAddProfile = document.querySelector('.popup_type_add-profile');
+//export const popupTypeImage = document.querySelector('.popup_type_image');

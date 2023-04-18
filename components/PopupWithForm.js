@@ -38,11 +38,3 @@ export default class PopupWithForm extends Popup {
           });
     }   
 }
-/////////////////////////////////
-/*export class PopupWithForm extends Popup {
-  constructor({ popup, handleFormSubmit }) {
-    super(popup);
-    this._handleFormSubmit = handleFormSubmit;
-    this._form = popup.querySelector(".form");
-    this._inputList = this._form.querySelectorAll(".form__input");
-  }*/

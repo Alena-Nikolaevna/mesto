@@ -10,57 +10,14 @@ import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-
 import PopupWithForm from '../components/PopupWithForm.js';
-
-import Popup from '../components/Popup.js';
 
 import {initialCards} from '../utils/initialCards.js';
 import {validationContainer} from '../utils/validationContainer.js';
 
-import {popups, profileName, profileJob, nameInput, jobInput, 
-  popupTypeEditProfile, popupTypeAddProfile, popupTypeImage, 
-  fullImagePopup, titlePopupPhoto, formElementAdd, 
+import {profileName, profileJob, nameInput, jobInput, formElementAdd, 
   elementsCards, imageNameInput, linkInput, formElementEdit, 
   profileEditButton, profileAddButton} from '../utils/constants.js';
-
-/*************************************************************************** */
- 
-
-
-/********************************************************** */
-  /*popups.forEach((popup) => {
-      popup.addEventListener('mousedown', (evt) => {
-          if (evt.target.classList.contains('popup_opened')) {
-                closePopup(popup);
-          }
-          if (evt.target.classList.contains('popup__button-close')) {
-                closePopup(popup);
-          }
-      });
-  });*/
-
-// закрытие попапов кнопкой esc
-/*function escClosePopup(evt) {
-  if (evt.key === 'Escape') {
-    const popupOpenedEsc = document.querySelector('.popup_opened');
-    closePopup(popupOpenedEsc);
-  }
-}*/
-
-/********************************************************************** */
-/*function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', escClosePopup);
-}*/
-
-/*function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escClosePopup);
-}*/
-
-
-
 
 /************************************************************************* */
 function handleCardClick(name, link) {
@@ -79,13 +36,14 @@ const renderCard = (element) => {
   itemsCardList.addItem(card);
 }
 
-////////////
+/************************************************************ */
 // экземпляр класса Section, который отвечает за отрисовку элементов на странице
-const itemsCardList = new Section({items:initialCards, renderer:renderCard}, '.elements');
+const itemsCardList = new Section({items:initialCards, renderer:renderCard}, elementsCards);
 itemsCardList.renderItems();
-/******************************** */
 
-const user = new UserInfo({nameSelector: '.profile__name', aboutSelector: '.profile__about'});
+/************************************************************ */
+// экземпляр класса UserInfo - отвечает за управление отображением информации о пользователе на странице
+const user = new UserInfo({nameSelector: profileName, aboutSelector: profileJob});
 
 /************************************* */
 function openpopupTypeEditProfile() {
@@ -102,9 +60,8 @@ function openPopupTypeAddProfile() {
 /************************************************************************** */
 
 //ф-ция редактирования профиля(сохранить информацию)
-function handleFormSubmitEdit(name, about) {
+function handleFormSubmitEdit({name, about}) {
   //evt.preventDefault();
-  
   
   user.setUserInfo(name, about);
   nameInput.value = name;
@@ -113,11 +70,9 @@ function handleFormSubmitEdit(name, about) {
   //profileName.textContent = nameInput.value;
   //profileJob.textContent = jobInput.value;
   newPopupTypeEditProfile.close();
-  
 }
-
-console.log(user);
 /********************************************************************************** */
+//ф-ция добавления карточки через попап-форму
 function handleFormSubmitAdd() {
 	//evt.preventDefault(); 
 
@@ -134,15 +89,11 @@ function handleFormSubmitAdd() {
 
 /***************************************** */
 
-//formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
-//formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
-
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 
 /********************************************************************************** */
 
-/******************************* */
 const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
 newFormElementEdit.enableValidation();
 
@@ -150,16 +101,18 @@ newFormElementEdit.enableValidation();
 const newFormElementAdd = new FormValidator(validationContainer, formElementAdd); //2
 newFormElementAdd.enableValidation();
 
-/** попап просмотра изображения */
+/* экземпляр класса PopupWithImage - попап просмотра изображения */
 const popupWithImage  = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
 
+/* экземпляр класса PopupWithForm - попап-форма редактирования профиля*/
 const newPopupTypeEditProfile  = new PopupWithForm ('.popup_type_edit-profile', handleFormSubmitEdit);
 newPopupTypeEditProfile.setEventListeners();
 
+/* экземпляр класса PopupWithForm - попап-форма добавления карточки*/
 const newPopupTypeAddProfile = new PopupWithForm ('.popup_type_add-profile', handleFormSubmitAdd);
 newPopupTypeAddProfile.setEventListeners();
 
-
-
-
+/********* */
+//formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
+//formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
