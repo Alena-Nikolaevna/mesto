@@ -5,6 +5,8 @@
      - Затем функции
      - Внизу файла реализуем добавление обработчиков
 ******************************************************************/
+import './index.css'; // добавьте импорт главного файла стилей
+
 import Card from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
@@ -16,8 +18,7 @@ import {initialCards} from '../utils/initialCards.js';
 import {validationContainer} from '../utils/validationContainer.js';
 
 import {profileName, profileJob, nameInput, jobInput, formElementAdd, 
-  elementsCards, imageNameInput, linkInput, formElementEdit, 
-  profileEditButton, profileAddButton} from '../utils/constants.js';
+  elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
 function handleCardClick(name, link) {
@@ -62,22 +63,12 @@ function openPopupTypeAddProfile() {
 //ф-ция редактирования профиля(сохранить информацию)
 function handleFormSubmitEdit({name, about}) { 
  user.setUserInfo(name, about);
-  //newPopupTypeEditProfile.close();
 }
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
-function handleFormSubmitAdd() {
-  const item = {
-    name: imageNameInput.value,
-		link: linkInput.value,
-  };
+function handleFormSubmitAdd(item) {
   renderCard(item);
-  // const newCard = createCard(data, '#card-template', handleCardClick);   На подумать: или всё же переделать  так. 
-  // itemsCardList.addItem(newCard);                                        Работает сайт и в той версии и в этой.
-
-	//newPopupTypeAddProfile.close();
 }
-
 /***************************************** */
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
