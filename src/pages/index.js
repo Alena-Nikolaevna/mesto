@@ -60,31 +60,22 @@ function openPopupTypeAddProfile() {
 /************************************************************************** */
 
 //ф-ция редактирования профиля(сохранить информацию)
-function handleFormSubmitEdit({name, about}) {
-  //evt.preventDefault();
-  
-  user.setUserInfo(name, about);
-  nameInput.value = name;
-  jobInput.value = about;
- 
-  //profileName.textContent = nameInput.value;
-  //profileJob.textContent = jobInput.value;
-  newPopupTypeEditProfile.close();
+function handleFormSubmitEdit({name, about}) { 
+ user.setUserInfo(name, about);
+  //newPopupTypeEditProfile.close();
 }
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
 function handleFormSubmitAdd() {
-	//evt.preventDefault(); 
-
   const item = {
     name: imageNameInput.value,
 		link: linkInput.value,
   };
   renderCard(item);
-  
-	//evt.target.reset();
-	newPopupTypeAddProfile.close();
-  //validationAddCardForm.disableSubmitButton();
+  // const newCard = createCard(data, '#card-template', handleCardClick);   На подумать: или всё же переделать  так. 
+  // itemsCardList.addItem(newCard);                                        Работает сайт и в той версии и в этой.
+
+	//newPopupTypeAddProfile.close();
 }
 
 /***************************************** */
