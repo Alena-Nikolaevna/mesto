@@ -48,13 +48,14 @@ const user = new UserInfo({nameSelector: profileName, aboutSelector: profileJob}
 
 /************************************* */
 function openpopupTypeEditProfile() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  const userObject = user.getUserInfo();
+  nameInput.value = userObject.name;
+  jobInput.value = userObject.about;
+
   newPopupTypeEditProfile.open();
 }
 
 function openPopupTypeAddProfile() {
-  formElementAdd.reset();
   newPopupTypeAddProfile.open();
 }
 

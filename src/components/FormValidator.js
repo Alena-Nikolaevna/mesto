@@ -64,6 +64,19 @@ export default class FormValidator {
       }
     }
   
+// и здесь тоже не сообразила
+
+    /*_resetValidation() {
+      this._toggleButtonState(); //<== управляем кнопкой ==
+
+      this._inputList.forEach((inputElement) => {
+        this.__hideItemInputError(inputElement) //очищаем ошибки ==
+      });
+
+    }*/
+
+
+
     _setEventListeners() {
 
       this._formElement.addEventListener('reset', () => { // собыите `reset` происходит когда вызывается `reset` у формы

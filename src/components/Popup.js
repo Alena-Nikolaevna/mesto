@@ -1,7 +1,8 @@
 export default class Popup {
     constructor(popupSelector) {  //Принимает в конструктор единственный параметр — селектор попапа
      this._popup = document.querySelector(popupSelector);
-     this._handleEscClose = this._handleEscClose.bind(this);
+     //this._handleEscClose = this._handleEscClose.bind(this);  т.к. метод _handleEscClose стрелочный, можно не привязывать контекст к this
+                                                                //Стрелочные методы не теряют контекст this
     }
       
     open() {  // метод который отвечает за открытие попапа
