@@ -13,6 +13,11 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+//import PopupWithSubmit from '../components/PopupWithSubmit.js';
+
+import { api } from '../components/Api.js';
+
+
 
 import {initialCards} from '../utils/initialCards.js';
 import {validationContainer} from '../utils/validationContainer.js';
@@ -21,10 +26,29 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
+
+
+
+////////////////////////////
+//достаем данные о пользователе и установим эти данные в нужных полях
+api.getUserInfo()
+.then((res) => { user.setUserInfo(res) })
+.catch((error) => console.log(`Ошибка: ${error}`))
+
+
+api.getInitialCards()
+.then((res) => {
+  //console.log('результат', res)
+  const data = res.map(data => data.name)
+  itemsCardList.renderItems(data)
+})
+//.catch((error) => console.log(`Ошибка: ${error}`))
+
+/********************************************** */
+
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
-
 /************************************************* */
 //cоздаем карточку  с помощью класса
 const createCard = (...args) => {
@@ -40,7 +64,7 @@ const renderCard = (element) => {
 /************************************************************ */
 // экземпляр класса Section, который отвечает за отрисовку элементов на странице
 const itemsCardList = new Section({items:initialCards, renderer:renderCard}, elementsCards);
-itemsCardList.renderItems();
+//itemsCardList.renderItems();
 
 /************************************************************ */
 // экземпляр класса UserInfo - отвечает за управление отображением информации о пользователе на странице
@@ -99,3 +123,23 @@ newPopupTypeAddProfile.setEventListeners();
 /********* */
 //formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
 //formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
+
+/////////////////
+
+/*const buttonCardDelete = document.querySelector('card__delete-bt'); 
+const popupTypeConfirm = document.querySelector('popup_type_confirm');
+
+const popupTypeAvatar = document.querySelector('popup_type_avatar');
+const buttonAvatarRedact = document.querySelector('profile__avatar-redact');
+
+function openPopupTypeConfirm() {
+  popupTypeConfirm.open();
+}
+
+function openPopupTypeAvatar() {
+  popupTypeAvatar.open();
+}
+
+
+buttonAvatarRedact.addEventListener('click', openPopupTypeAvatar);
+buttonCardDelete.addEventListener('click', openPopupTypeConfirm);*/
