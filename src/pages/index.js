@@ -13,7 +13,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-//import PopupWithSubmit from '../components/PopupWithSubmit.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 import { api } from '../components/Api.js';
 
