@@ -26,8 +26,10 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
+//const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
+//popupTypeConfirm.setEventListeners();
 
-
+/////
 const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
 const buttonAvatar = document.querySelector('profile__avatar');
 ////////////////////////////
@@ -35,9 +37,6 @@ const buttonAvatar = document.querySelector('profile__avatar');
 api.getUserInfo()
 .then((res) => { user.setUserInfo(res) })
 .catch((error) => console.log(`Ошибка: ${error}`))
-
-
-
 
 
 api.getInitialCards()
