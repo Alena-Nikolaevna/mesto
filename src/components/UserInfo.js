@@ -15,13 +15,17 @@ export default class UserInfo {
           };
     }
 
-    setUserInfo({name, about, avatar}) {  //метод, который принимает новые данные пользователя и добавляет их на страницу
+    setUserInfo({name, about}) {  //метод, который принимает новые данные пользователя и добавляет их на страницу
         this._name.textContent = name;
         this._about.textContent = about;
-        this._avatar.src = avatar;
+       // this._avatar.src = avatar;
     }
 
     /*getUserAvatar() {
         this.__avatar.src = link;
       }*/
+
+      setUserAvatar(link) {
+        this._avatar.src = link;
+      }
 }

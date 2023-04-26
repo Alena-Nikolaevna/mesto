@@ -15,6 +15,7 @@ export const elementsCards = document.querySelector('.elements');
 
 /************************************************************************ */
 
+
 // добавление карточки через попап(новое место)
 export const formElementAdd = document.querySelector('.popup__form-edit-container_add'); //2
 export const imageNameInput = formElementAdd.querySelector('.popup__form-item_type_name');

@@ -28,6 +28,8 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
 /************************************************************************* */
 
 
+const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
+const buttonAvatarRedact = document.querySelector('profile__avatar-redact');
 ////////////////////////////
 //достаем данные о пользователе и установим эти данные в нужных полях
 api.getUserInfo()
@@ -86,11 +88,20 @@ function openPopupTypeAddProfile() {
   newPopupTypeAddProfile.open();
 }
 
+
+function openPopupTypeAvatar() {
+  newPopupTypeAvatar.open();
+}
 /************************************************************************** */
 
+/////////////////////////
 //ф-ция редактирования профиля(сохранить информацию)
-function handleFormSubmitEdit({name, about}) { 
+function handleFormSubmitEdit(name, about) { 
  user.setUserInfo(name, about);
+ 
+  /*api.patchUserInfo(data)
+   .then((res) => { user.setUserInfo(res) })
+   .catch((error) => console.log(`Ошибка: ${error}`))*/
   
 }
 /********************************************************************************** */
@@ -99,12 +110,14 @@ function handleFormSubmitAdd(item) {
   renderCard(item);
 }
 /***************************************** */
-
+function handleFormSubmitAvatar(link) {
+  user.setUserAvatar(link);
+}
 //////////////////////////
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
-
+//buttonAvatarRedact.addEventListener('click', openPopupTypeAvatar); всё ломается сразу
 /********************************************************************************** */
 
 const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
@@ -113,6 +126,10 @@ newFormElementEdit.enableValidation();
 
 const newFormElementAdd = new FormValidator(validationContainer, formElementAdd); //2
 newFormElementAdd.enableValidation();
+
+const newFormElementAvatar = new FormValidator(validationContainer, formElementAvatar); //3
+newFormElementAdd.enableValidation();
+
 
 /* экземпляр класса PopupWithImage - попап просмотра изображения */
 const popupWithImage  = new PopupWithImage('.popup_type_image');
@@ -125,6 +142,9 @@ newPopupTypeEditProfile.setEventListeners();
 /* экземпляр класса PopupWithForm - попап-форма добавления карточки*/
 const newPopupTypeAddProfile = new PopupWithForm ('.popup_type_add-profile', handleFormSubmitAdd);
 newPopupTypeAddProfile.setEventListeners();
+
+const newPopupTypeAvatar = new PopupWithForm ('.popup_type_avatar', handleFormSubmitAvatar);
+newPopupTypeAvatar.setEventListeners();
 
 /********* */
 //formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
