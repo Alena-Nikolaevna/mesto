@@ -29,7 +29,7 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
 
 
 const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
-const buttonAvatarRedact = document.querySelector('profile__avatar-redact');
+const buttonAvatar = document.querySelector('profile__avatar');
 ////////////////////////////
 //достаем данные о пользователе и установим эти данные в нужных полях
 api.getUserInfo()
@@ -73,7 +73,7 @@ const itemsCardList = new Section({renderer: renderCard}, elementsCards);
 
 /************************************************************ */
 // экземпляр класса UserInfo - отвечает за управление отображением информации о пользователе на странице
-const user = new UserInfo({nameSelector: profileName, aboutSelector: profileJob});
+const user = new UserInfo({nameSelector: profileName, aboutSelector: profileJob, avatarSelector: buttonAvatar});
 
 /************************************* */
 function openpopupTypeEditProfile() {
@@ -96,18 +96,21 @@ function openPopupTypeAvatar() {
 
 /////////////////////////
 //ф-ция редактирования профиля(сохранить информацию)
-function handleFormSubmitEdit(name, about) { 
- user.setUserInfo(name, about);
- 
-  /*api.patchUserInfo(data)
-   .then((res) => { user.setUserInfo(res) })
-   .catch((error) => console.log(`Ошибка: ${error}`))*/
+function handleFormSubmitEdit(data) { 
+ //user.setUserInfo(name, about);
   
-}
+ 
+  api.patchUserInfo(data)
+   .then((res) => { user.setUserInfo(res.name, res.about) })
+   .catch((error) => console.log(`Ошибка: ${error}`))
+ }
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
-function handleFormSubmitAdd(item) {
-  renderCard(item);
+function handleFormSubmitAdd(data) {
+  //renderCard(item);
+ api.createNewCard(data)
+ .then((res) => {renderCard(res)})
+ .catch((error) => console.log(`Ошибка: ${error}`))
 }
 /***************************************** */
 function handleFormSubmitAvatar(link) {
@@ -117,7 +120,7 @@ function handleFormSubmitAvatar(link) {
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
-//buttonAvatarRedact.addEventListener('click', openPopupTypeAvatar); всё ломается сразу
+//buttonAvatar.addEventListener('click', openPopupTypeAvatar); //всё ломается сразу
 /********************************************************************************** */
 
 const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
@@ -128,7 +131,7 @@ const newFormElementAdd = new FormValidator(validationContainer, formElementAdd)
 newFormElementAdd.enableValidation();
 
 const newFormElementAvatar = new FormValidator(validationContainer, formElementAvatar); //3
-newFormElementAdd.enableValidation();
+newFormElementAvatar.enableValidation();
 
 
 /* экземпляр класса PopupWithImage - попап просмотра изображения */
@@ -145,7 +148,6 @@ newPopupTypeAddProfile.setEventListeners();
 
 const newPopupTypeAvatar = new PopupWithForm ('.popup_type_avatar', handleFormSubmitAvatar);
 newPopupTypeAvatar.setEventListeners();
-
 /********* */
 //formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
 //formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
@@ -155,19 +157,10 @@ newPopupTypeAvatar.setEventListeners();
 /*const buttonCardDelete = document.querySelector('card__delete-bt'); 
 const popupTypeConfirm = document.querySelector('popup_type_confirm');
 
-const popupTypeAvatar = document.querySelector('popup_type_avatar');
-const buttonAvatarRedact = document.querySelector('profile__avatar-redact');
-
 function openPopupTypeConfirm() {
   popupTypeConfirm.open();
 }
 
-function openPopupTypeAvatar() {
-  popupTypeAvatar.open();
-}
-
-
-buttonAvatarRedact.addEventListener('click', openPopupTypeAvatar);
 buttonCardDelete.addEventListener('click', openPopupTypeConfirm);*/
 
 
