@@ -4,14 +4,19 @@ class Api {
     this._headers = setting.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  }
+
   //загружаем информацию о пользователе с сервера
   getUserInfo() { 
     return fetch(`${this._address}/users/me`, { 
       method: "GET", 
       headers: this._headers, 
-    }).then((result) => {
-      console.log(result);
-      });
+    }).then(this._checkResponse);
   }
 
 
@@ -21,15 +26,7 @@ class Api {
     return fetch(`${this._address}/cards`, {
       method: "GET",
       headers: this._headers,
-    }).then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .catch(console.log);
+    }).then(this._checkResponse);
   }
 
 
@@ -44,17 +41,8 @@ class Api {
         name: data.name,
         about: data.about,
       })
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch(console.log);
+    }).then(this._checkResponse);
   }
-
 
 
   //Добавление новой карточки
@@ -66,15 +54,7 @@ class Api {
         link: data.link,
         name: data.name
       })
-    }).then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-        }
-      })
-      .catch(console.log);
+    }).then(this._checkResponse);
   }
 
 
@@ -82,17 +62,11 @@ class Api {
     return fetch(`${this._address}cards/${cardId}/`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch(console.log);
+    }).then(this._checkResponse);
   }
 
+
+  
 } 
 
 
@@ -127,3 +101,5 @@ export const api = new Api({
 - удалить лайк карточки (DELETE)*/
 
 
+// если ошибка, отклоняем промис
+//return Promise.reject(`Ошибка: ${res.status}`);

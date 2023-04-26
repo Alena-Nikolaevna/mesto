@@ -28,21 +28,20 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
 /************************************************************************* */
 
 
-
 ////////////////////////////
 //достаем данные о пользователе и установим эти данные в нужных полях
 api.getUserInfo()
-.then((res) => { user.setUserInfo(res) })
+.then((res) => { user.setUserInfo(res.name, res.about) })
 .catch((error) => console.log(`Ошибка: ${error}`))
 
 
 api.getInitialCards()
 .then((res) => {
   //console.log('результат', res)
-  const data = res.map(data => data.name)
-  itemsCardList.renderItems(data)
+  itemsCardList.renderItems(res); // res - это данные с сервера, в данном случае - массив карточек
+ 
 })
-//.catch((error) => console.log(`Ошибка: ${error}`))
+.catch((error) => console.log(`Ошибка: ${error}`))
 
 /********************************************** */
 
@@ -51,6 +50,7 @@ function handleCardClick(name, link) {
 }
 /************************************************* */
 //cоздаем карточку  с помощью класса
+//api.createNewCard(data)
 const createCard = (...args) => {
   return new Card(...args).generateCard();
 }
@@ -63,7 +63,7 @@ const renderCard = (element) => {
 
 /************************************************************ */
 // экземпляр класса Section, который отвечает за отрисовку элементов на странице
-const itemsCardList = new Section({items:initialCards, renderer:renderCard}, elementsCards);
+const itemsCardList = new Section({renderer: renderCard}, elementsCards);
 //itemsCardList.renderItems();
 
 /************************************************************ */
@@ -143,3 +143,5 @@ function openPopupTypeAvatar() {
 
 buttonAvatarRedact.addEventListener('click', openPopupTypeAvatar);
 buttonCardDelete.addEventListener('click', openPopupTypeConfirm);*/
+
+
