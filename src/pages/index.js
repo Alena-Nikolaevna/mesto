@@ -31,8 +31,11 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
 ////////////////////////////
 //достаем данные о пользователе и установим эти данные в нужных полях
 api.getUserInfo()
-.then((res) => { user.setUserInfo(res.name, res.about) })
+.then((res) => { user.setUserInfo(res) })
 .catch((error) => console.log(`Ошибка: ${error}`))
+
+
+
 
 
 api.getInitialCards()
@@ -88,6 +91,7 @@ function openPopupTypeAddProfile() {
 //ф-ция редактирования профиля(сохранить информацию)
 function handleFormSubmitEdit({name, about}) { 
  user.setUserInfo(name, about);
+  
 }
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
@@ -95,6 +99,8 @@ function handleFormSubmitAdd(item) {
   renderCard(item);
 }
 /***************************************** */
+
+//////////////////////////
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);

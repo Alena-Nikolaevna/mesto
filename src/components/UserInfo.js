@@ -2,9 +2,10 @@
 //Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе
 
 export default class UserInfo {
-    constructor({nameSelector, aboutSelector}) {
+    constructor({nameSelector, aboutSelector, avatarSelector}) {
         this._name = nameSelector;
         this._about = aboutSelector;
+        this._avatar = avatarSelector;
     }
 
     getUserInfo() {  //метод, который возвращает объект с данными пользователя
@@ -14,8 +15,13 @@ export default class UserInfo {
           };
     }
 
-    setUserInfo(name, about) {  //метод, который принимает новые данные пользователя и добавляет их на страницу
+    setUserInfo({name, about, avatar}) {  //метод, который принимает новые данные пользователя и добавляет их на страницу
         this._name.textContent = name;
         this._about.textContent = about;
+        this._avatar.src = avatar;
     }
+
+    /*getUserAvatar() {
+        this.__avatar.src = link;
+      }*/
 }
