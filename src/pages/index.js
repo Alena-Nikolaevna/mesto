@@ -98,19 +98,17 @@ function openPopupTypeAvatar() {
 //ф-ция редактирования профиля(сохранить информацию)
 function handleFormSubmitEdit(data) { 
  //user.setUserInfo(name, about);
-  
- 
   api.patchUserInfo(data)
-   .then((res) => { user.setUserInfo(res.name, res.about) })
+   .then((res) => { user.setUserInfo(res) })
    .catch((error) => console.log(`Ошибка: ${error}`))
  }
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
 function handleFormSubmitAdd(data) {
   //renderCard(item);
- api.createNewCard(data)
- .then((res) => {renderCard(res)})
- .catch((error) => console.log(`Ошибка: ${error}`))
+  api.createNewCard(data)
+  .then((res) => {renderCard(res)})
+  .catch((error) => console.log(`Ошибка: ${error}`))
 }
 /***************************************** */
 function handleFormSubmitAvatar(link) {

@@ -33,7 +33,7 @@ class Api {
     // отправляем/сохраняем данные пользователя на сервер 
   // заменяем данные пользователя
   patchUserInfo(data) {
-    return fetch(`${this._address}users/me/`, {
+    return fetch(`${this._address}/users/me/`, {
       method: "PATCH",
       headers: this._headers,
 
@@ -78,17 +78,6 @@ export const api = new Api({
   }
 }); 
 
-
-
-/*fetch('https://mesto.nomoreparties.co/v1/cohort-42/cards', {
-  headers: {
-    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-  }); */
 
 
 /*- получить список всех карточек в виде массива (GET) +
