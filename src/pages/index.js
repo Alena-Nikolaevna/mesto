@@ -41,18 +41,6 @@ function handleDeleteClick(card) {
 };
 
 
-/*function handleDeleteClick(card) {
-  popupTypeConfirm.open();
-  popupTypeConfirm.handleSubmit(() => {
-    api.deleteCard(card.cardId)
-  .then(() => { 
-      card.deleteCard();
-     popupTypeConfirm.close();
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`))
-  })
-};*/
-
 
 // API лайк и дизлайк карточки
 const handleLikeCard = (card) => {
