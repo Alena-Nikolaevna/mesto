@@ -196,9 +196,9 @@ buttonAvatar.addEventListener('click', openPopupTypeAvatar);
 
 
 const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
-//popupTypeConfirm.setEventListeners();
+popupTypeConfirm.setEventListeners();
 
-//buttonCardDelete.addEventListener('click', openPopupTypeConfirm);
+buttonCardDelete.addEventListener('click', openPopupTypeConfirm);
 
 
 
