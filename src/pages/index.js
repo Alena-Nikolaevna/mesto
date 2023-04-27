@@ -120,6 +120,7 @@ function handleFormSubmitAdd(data) {
   .catch((error) => console.log(`Ошибка: ${error}`))
 }
 /***************************************** */
+// апи-аватар
 function handleFormSubmitAvatar(item) {
   api.patchUserAvatar(item)
   .then((res) => { user.setUserAvatar(res); newPopupTypeAvatar.close(); })
