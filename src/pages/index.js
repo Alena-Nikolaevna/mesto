@@ -17,7 +17,7 @@ import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 import { api } from '../components/Api.js';
 
-
+//import renderLoading from '../utils/constants.js';
 
 import {initialCards} from '../utils/initialCards.js';
 import {validationContainer} from '../utils/validationContainer.js';
@@ -26,10 +26,30 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
+function renderLoading (isLoading, button) {
+  if (isLoading) {
+      if (button.textContent.length >= 9) {
+          button.textContent = 'Сохранение...';
+      } else {
+          button.textContent = 'Создание...';
+      }
+
+  } else {
+      if (button.textContent.length >= 12) {
+          button.textContent = 'Сохранить';
+      } else {
+          button.textContent = 'Создать';
+      }
+  }
+}
+
+/////******************************************** */
+
 function handleDeleteClick(card) {
   popupTypeConfirm.open();
   popupTypeConfirm.handleSubmit(() => {
-    api.deleteCard(card.cardId)
+    renderLoading(true, popupConfirm.querySelector('.popup__form-button-submit'));
+    api.deleteCard(card._cardId)
   .then((res) => { 
     if (res.ok) {
       card.deleteCard();
@@ -37,6 +57,7 @@ function handleDeleteClick(card) {
     }
   })
   .catch((error) => console.log(`Ошибка: ${error}`))
+  .finally(() => renderLoading(false, popupConfirm.querySelector('.popup__form-button-submit')));
   })
 };
 
@@ -137,28 +158,49 @@ function openPopupTypeAvatar() {
 }*/
 /************************************************************************** */
 
+
+
+const popupAvatarForm = document.querySelector('.popup_type_avatar');
+
+const popupConfirm  = document.querySelector('.popup_type_confirm');
+
+const popupAdd = document.querySelector('.popup_type_add-profile');
+
+const popupEdit = document.querySelector('.popup_type_edit-profile');
+
+
+
+
+
 /////////////////////////
 //ф-ция редактирования профиля(сохранить информацию)
 function handleFormSubmitEdit(data) { 
  //user.setUserInfo(name, about);
+ renderLoading(true, popupEdit.querySelector('.popup__form-button-submit'));
   api.patchUserInfo(data)
    .then((res) => { user.setUserInfo(res) })
    .catch((error) => console.log(`Ошибка: ${error}`))
+   .finally(() => renderLoading(false, popupEdit.querySelector('.popup__form-button-submit')));
+   
  }
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
 function handleFormSubmitAdd(data) {
   //renderCard(item);
+  renderLoading(true, popupAdd.querySelector('.popup__form-button-submit'));
   api.createNewCard(data)
   .then((res) => {renderCard(res)})
   .catch((error) => console.log(`Ошибка: ${error}`))
+  .finally(() => renderLoading(false, popupAdd.querySelector('.popup__form-button-submit')));
 }
 /***************************************** */
 // апи-аватар
 function handleFormSubmitAvatar(item) {
+  renderLoading(true, popupAvatarForm.querySelector('.popup__form-button-submit'));
    api.patchUserAvatar(item)
   .then((res) => { user.setUserInfo(res) })
-  .catch((error) => console.log(`Ошибка: ${error}`));
+  .catch((error) => console.log(`Ошибка: ${error}`))
+  .finally(() => renderLoading(false, popupAvatarForm.querySelector('.popup__form-button-submit')));
 }
 
 /********************************************************************************** */

@@ -36,3 +36,4 @@ export const linkInput = formElementAdd.querySelector('.popup__form-item_type_jo
 //export const popupTypeEditProfile = document.querySelector('.popup_type_edit-profile');
 //export const popupTypeAddProfile = document.querySelector('.popup_type_add-profile');
 //export const popupTypeImage = document.querySelector('.popup_type_image');
+
