@@ -26,8 +26,19 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
-//const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
-//popupTypeConfirm.setEventListeners();
+//ПОПАП удаления карточки
+
+/*const buttonCardDelete = document.querySelector('card__delete-bt'); 
+const popupTypeConfirm = document.querySelector('popup_type_confirm');
+buttonCardDelete.addEventListener('click', openPopupTypeConfirm);
+
+
+function openPopupTypeConfirm() {
+  popupTypeConfirm.open();
+}
+
+const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
+popupTypeConfirm.setEventListeners();*/
 
 /////
 const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
@@ -87,7 +98,6 @@ function openPopupTypeAddProfile() {
   newPopupTypeAddProfile.open();
 }
 
-
 function openPopupTypeAvatar() {
   newPopupTypeAvatar.open();
 }
@@ -110,14 +120,13 @@ function handleFormSubmitAdd(data) {
   .catch((error) => console.log(`Ошибка: ${error}`))
 }
 /***************************************** */
-function handleFormSubmitAvatar(link) {
-  user.setUserAvatar(link);
+function handleFormSubmitAvatar(item) {
+  api.patchUserAvatar(item)
+  .then((res) => { user.setUserAvatar(res); newPopupTypeAvatar.close(); })
+  .catch((error) => console.log(`Ошибка: ${error}`))
 }
-//////////////////////////
 
-profileEditButton.addEventListener('click', openpopupTypeEditProfile);
-profileAddButton.addEventListener('click', openPopupTypeAddProfile);
-//buttonAvatar.addEventListener('click', openPopupTypeAvatar); //всё ломается сразу
+
 /********************************************************************************** */
 
 const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
@@ -143,21 +152,18 @@ newPopupTypeEditProfile.setEventListeners();
 const newPopupTypeAddProfile = new PopupWithForm ('.popup_type_add-profile', handleFormSubmitAdd);
 newPopupTypeAddProfile.setEventListeners();
 
-const newPopupTypeAvatar = new PopupWithForm ('.popup_type_avatar', handleFormSubmitAvatar);
-newPopupTypeAvatar.setEventListeners();
+
 /********* */
 //formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
 //formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
 
 /////////////////
 
-/*const buttonCardDelete = document.querySelector('card__delete-bt'); 
-const popupTypeConfirm = document.querySelector('popup_type_confirm');
-
-function openPopupTypeConfirm() {
-  popupTypeConfirm.open();
-}
-
-buttonCardDelete.addEventListener('click', openPopupTypeConfirm);*/
+//ПОПАП АВАТАРА
+const newPopupTypeAvatar = new PopupWithForm ('.popup_type_avatar', handleFormSubmitAvatar);
+newPopupTypeAvatar.setEventListeners();
 
 
+profileEditButton.addEventListener('click', openpopupTypeEditProfile);
+profileAddButton.addEventListener('click', openPopupTypeAddProfile);
+buttonAvatar.addEventListener('click', openPopupTypeAvatar); //всё ломается сразу
