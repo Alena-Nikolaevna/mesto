@@ -42,7 +42,7 @@ popupTypeConfirm.setEventListeners();*/
 
 /////
 const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
-const buttonAvatar = document.querySelector('profile__avatar');
+const buttonAvatar = document.querySelector('.profile__avatar');
 ////////////////////////////
 //достаем данные о пользователе и установим эти данные в нужных полях
 api.getUserInfo()
@@ -123,8 +123,8 @@ function handleFormSubmitAdd(data) {
 // апи-аватар
 function handleFormSubmitAvatar(item) {
   api.patchUserAvatar(item)
-  .then((res) => { user.setUserAvatar(res); newPopupTypeAvatar.close(); })
-  .catch((error) => console.log(`Ошибка: ${error}`))
+  .then((res) => { user.setUserAvatar(res) })
+  .catch((error) => console.log(`Ошибка: ${error}`));
 }
 
 
@@ -168,3 +168,5 @@ newPopupTypeAvatar.setEventListeners();
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 buttonAvatar.addEventListener('click', openPopupTypeAvatar); //всё ломается сразу
+console.log(newPopupTypeAvatar);
+
