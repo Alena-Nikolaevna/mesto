@@ -3,7 +3,7 @@
 
 export default class Card {
   // в конструкторе будут динамические данные, для каждого экземпляра свои
- constructor(data, templateSelector, handleCardClick, handleLikeCard, handleDislikeCard, userId) {
+ constructor(data, templateSelector, handleCardClick, handleLikeCard, handleDislikeCard, handleDeleteClick, userId) {
    // text и image — приватные поля, они нужны только внутри класса
 
 
@@ -13,9 +13,10 @@ export default class Card {
    this._likes = data.likes;
    this._userId = userId;
    this._ownerId = data.owner._id;
-   this._cardId = data._id
+   this._cardId = data._id;
    this._handleLikeCard = handleLikeCard;
    this._handleDislikeCard = handleDislikeCard;
+   this._handleDeleteClick = handleDeleteClick;
 
    this._templateSelector = templateSelector;
    this._handleCardClick = handleCardClick;
@@ -53,9 +54,9 @@ export default class Card {
  generateCard() {
    this._element = this._getTemplate();
 
-   this._isOwner();
+   
    this._setEventListeners();
-
+   //this._isOwner();
 
    this._cardImage.src = this._link;   //присваиваем значения ссылки 
    this._element.querySelector('.card__title').textContent = this._name; //и имени карточки 
@@ -71,7 +72,8 @@ export default class Card {
 
  // создаём метод кнопки удаления
  _deleteCard() {
-   this._cardDelete.closest('.card').remove();
+  this._handleDeleteClick(this._userId);
+  // this._cardDelete.closest('.card').remove();
    //this._cardDelete.remove();
  }
 

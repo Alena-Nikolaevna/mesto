@@ -26,7 +26,12 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
-
+const handleDeleteClick = (cardId) => {
+ // console.log('delete caar');
+  api.deleteCard(cardId)
+  .then((res) => { console.log('ressss', res) })
+  //.catch((error) => console.log(`Ошибка: ${error}`))
+};
 
 // API лайк и дизлайк карточки
 const handleLikeCard = (card) => {
@@ -49,7 +54,7 @@ const handleDislikeCard = (card) => {
 
 
 ////////////////
-//ПОПАП удаления карточки
+
 
 const buttonCardDelete = document.querySelector('.card__delete-bt'); 
 //const popupTypeConfirm = document.querySelector('popup_type_confirm');
@@ -86,7 +91,7 @@ const createCard = (...args) => {
 
 //функция появления карточки
 const renderCard = (element) => {
-  const card = createCard(element, '#card-template', handleCardClick, handleLikeCard, handleDislikeCard);
+  const card = createCard(element, '#card-template', handleCardClick, handleLikeCard, handleDislikeCard, handleDeleteClick);
   itemsCardList.addItem(card);
 }
 
@@ -116,7 +121,9 @@ function openPopupTypeAvatar() {
   newPopupTypeAvatar.open();
 }
 
-
+function openPopupTypeConfirm() {
+  popupTypeConfirm.open();
+}
 /************************************************************************** */
 
 /////////////////////////
@@ -186,14 +193,12 @@ buttonAvatar.addEventListener('click', openPopupTypeAvatar);
 
 /////////////////////////////
 
-//попап удаления
-/*function openPopupTypeConfirm() {
-  popupTypeConfirm.open();
-}
+
 
 const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
-popupTypeConfirm.setEventListeners();
-buttonCardDelete.addEventListener('click', openPopupTypeConfirm);*/
+//popupTypeConfirm.setEventListeners();
+
+//buttonCardDelete.addEventListener('click', openPopupTypeConfirm);
 
 
 
