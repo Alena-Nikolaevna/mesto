@@ -43,7 +43,7 @@ popupTypeConfirm.setEventListeners();*/
 /////
 const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
 const buttonAvatar = document.querySelector('.profile__avatar');
-////////////////////////////
+//////////////////////////
 //достаем данные о пользователе и установим эти данные в нужных полях
 api.getUserInfo()
 .then((res) => { user.setUserInfo(res) })
