@@ -26,12 +26,35 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
-const handleDeleteClick = (cardId) => {
- // console.log('delete caar');
-  api.deleteCard(cardId)
-  .then((res) => { console.log('ressss', res) })
-  //.catch((error) => console.log(`Ошибка: ${error}`))
+function handleDeleteClick(card) {
+  popupTypeConfirmюhandleSubmit(() => {
+    api.deleteCard(card.cardId)
+  .then((res) => { })
+  .catch((error) => console.log(`Ошибка: ${error}`))
+  })
 };
+
+
+/*function handleDeleteCard(card) {
+  popupTypeConfirm.open();
+  popupTypeConfirm.submitPopup
+  (() => {
+      api.deleteCard(card.getId())
+      .then(() => {
+        card.removeItem();
+        popupConfirmation.close();
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
+  );
+}*/
+
+
+
+
+
 
 // API лайк и дизлайк карточки
 const handleLikeCard = (card) => {
@@ -64,8 +87,11 @@ const formElementAvatar = document.querySelector('.popup__form-edit-container_av
 const buttonAvatar = document.querySelector('.profile__avatar');
 //////////////////////////
 //достаем данные о пользователе и установим эти данные в нужных полях
+let userId;
 api.getUserInfo()
-.then((res) => { user.setUserInfo(res) })
+.then((res) => { 
+  userId = res._id;
+  user.setUserInfo(res) })
 .catch((error) => console.log(`Ошибка: ${error}`))
 
 
@@ -91,7 +117,7 @@ const createCard = (...args) => {
 
 //функция появления карточки
 const renderCard = (element) => {
-  const card = createCard(element, '#card-template', handleCardClick, handleLikeCard, handleDislikeCard, handleDeleteClick);
+  const card = createCard(element, '#card-template', handleCardClick, handleLikeCard, handleDislikeCard, handleDeleteClick, userId);
   itemsCardList.addItem(card);
 }
 
@@ -121,8 +147,9 @@ function openPopupTypeAvatar() {
   newPopupTypeAvatar.open();
 }
 
-function openPopupTypeConfirm() {
+function openPopupTypeConfirm(action) {
   popupTypeConfirm.open();
+  handleSubmit(action);
 }
 /************************************************************************** */
 

@@ -56,7 +56,7 @@ export default class Card {
 
    
    this._setEventListeners();
-   //this._isOwner();
+   this._isOwner(); // проверяем id того кто добавил карточку со своим
 
    this._cardImage.src = this._link;   //присваиваем значения ссылки 
    this._element.querySelector('.card__title').textContent = this._name; //и имени карточки 
