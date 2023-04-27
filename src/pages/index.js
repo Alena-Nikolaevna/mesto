@@ -38,7 +38,7 @@ const handleLikeCard = (card) => {
   api.likeCard(card._cardId)
   .then((res) => {
     card.toggleLike();
-    cardCountLike.textContent = res.likes.length;
+    card._cardCountLike.textContent = res.likes.length;
   })
   .catch((err) => { console.log(err) });
 };
@@ -47,7 +47,7 @@ const handleDislikeCard = (card) => {
   api.dislikeCard(card._cardId)
   .then((res) => {
     card.toggleLike();
-    cardCountLike.textContent = res.likes.length;
+    card._cardCountLike.textContent = res.likes.length;
   })
   .catch((err) => { console.log(err) });
 };
