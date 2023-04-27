@@ -5,9 +5,10 @@
 .header__logo{background-image:url(45228ff135c493d060b4.svg);background-repeat:no-repeat;height:33px;width:142px}@media screen and (max-width:900px){.header__logo{margin-left:27px}}@media screen and (max-width:700px){.header__logo{height:24px;width:104px}}
 
 .profile{align-items:center;box-sizing:border-box;display:flex;justify-content:flex-start;margin:40px auto 51px;max-width:880px;width:100%}@media screen and (max-width:918px){.profile{padding-left:19px;padding-right:19px}}@media screen and (max-width:700px){.profile{flex-direction:column;margin:42px auto 36px;max-width:282px;padding:0}}
-.profile__container{margin-right:30px;position:relative}@media screen and (max-width:700px){.profile__container{margin-right:0}}
-.profile__avatar{border-radius:50%;height:120px;overflow:hidden;position:relative;width:120px;z-index:1}.profile__avatar:hover{opacity:.2}
-.profile__avatar-redact{box-sizing:border-box;height:120px;left:50%;padding:47px;position:absolute;top:0;transform:translate(-50%);width:120px}
+.profile__container{align-self:center;margin-right:30px;position:relative}@media screen and (max-width:700px){.profile__container{margin-right:0}}
+
+.profile__avatar{aspect-ratio:1/1;border-radius:50%;height:120px;max-width:120px;overflow:hidden;position:relative;z-index:1}.profile__avatar:hover{opacity:.2}
+.profile__avatar-redact{box-sizing:border-box;height:120px;left:50%;max-width:120px;padding:47px;position:absolute;top:0;transform:translate(-50%)}
 .profile__info{align-items:center;display:flex;flex-wrap:wrap;margin:auto 0;max-width:50%}@media screen and (max-width:700px){.profile__info{justify-content:center;margin:26px 0 36px;max-width:282px}}
 .profile__name{font-family:Inter,Arial,sans-serif,Helvetica Neue;font-size:42px;font-style:normal;font-weight:500;line-height:48px;margin:0 18px 0 0;max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:700px){.profile__name{font-size:27px;line-height:33px;margin-left:auto;margin-right:10px;text-align:center}}
 .profile__edit-button{background-color:transparent;background-image:url(ca24bbfebaec05407929.svg);background-position:50%;background-repeat:no-repeat;background-size:10px 10px;border:1px solid #fff;box-sizing:border-box;cursor:pointer;height:24px;margin-top:8px;padding:0;width:24px}.profile__edit-button:hover{opacity:.6}@media screen and (max-width:700px){.profile__edit-button{background-size:7.5px 7.5px;height:18px;margin-bottom:5px;margin-right:auto;width:18px}}
