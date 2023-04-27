@@ -27,33 +27,31 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
 
 /************************************************************************* */
 function handleDeleteClick(card) {
-  popupTypeConfirmюhandleSubmit(() => {
+  popupTypeConfirm.open();
+  popupTypeConfirm.handleSubmit(() => {
     api.deleteCard(card.cardId)
-  .then((res) => { })
+  .then((res) => { 
+    if (res.ok) {
+      card.deleteCard();
+     popupTypeConfirm.close();
+    }
+  })
   .catch((error) => console.log(`Ошибка: ${error}`))
   })
 };
 
 
-/*function handleDeleteCard(card) {
+/*function handleDeleteClick(card) {
   popupTypeConfirm.open();
-  popupTypeConfirm.submitPopup
-  (() => {
-      api.deleteCard(card.getId())
-      .then(() => {
-        card.removeItem();
-        popupConfirmation.close();
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-    }
-  );
-}*/
-
-
-
-
+  popupTypeConfirm.handleSubmit(() => {
+    api.deleteCard(card.cardId)
+  .then(() => { 
+      card.deleteCard();
+     popupTypeConfirm.close();
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))
+  })
+};*/
 
 
 // API лайк и дизлайк карточки
@@ -77,9 +75,7 @@ const handleDislikeCard = (card) => {
 
 
 ////////////////
-
-
-const buttonCardDelete = document.querySelector('.card__delete-bt'); 
+//const buttonCardDelete = document.querySelector('.card__delete-bt'); 
 //const popupTypeConfirm = document.querySelector('popup_type_confirm');
 
 /////
@@ -110,7 +106,7 @@ function handleCardClick(name, link) {
 }
 /************************************************* */
 //cоздаем карточку  с помощью класса
-//api.createNewCard(data)
+
 const createCard = (...args) => {
   return new Card(...args).generateCard();
 }
@@ -147,10 +143,10 @@ function openPopupTypeAvatar() {
   newPopupTypeAvatar.open();
 }
 
-function openPopupTypeConfirm(action) {
+/*function openPopupTypeConfirm(action) {
   popupTypeConfirm.open();
   handleSubmit(action);
-}
+}*/
 /************************************************************************** */
 
 /////////////////////////
@@ -203,11 +199,7 @@ const newPopupTypeAddProfile = new PopupWithForm ('.popup_type_add-profile', han
 newPopupTypeAddProfile.setEventListeners();
 
 
-/********* */
-//formElementEdit.addEventListener('submit', handleFormSubmitEdit); //обработчик кнопки "сохранить"
-//formElementAdd.addEventListener('submit', handleFormSubmitAdd); // обработчик кнопки "создать" //2
-
-/////////////////
+/****************************************** */
 
 //ПОПАП АВАТАРА
 const newPopupTypeAvatar = new PopupWithForm ('.popup_type_avatar', handleFormSubmitAvatar);
@@ -221,11 +213,9 @@ buttonAvatar.addEventListener('click', openPopupTypeAvatar);
 /////////////////////////////
 
 
-
+//попап удаления карточки
 const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
 popupTypeConfirm.setEventListeners();
-
-buttonCardDelete.addEventListener('click', openPopupTypeConfirm);
 
 
 
