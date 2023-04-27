@@ -57,7 +57,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-
+// удаление карточки
   deleteCard(cardId) {
     return fetch(`${this._address}/cards/${cardId}`, {
       method: "DELETE",
@@ -76,6 +76,28 @@ class Api {
       })
     }).then(this._checkResponse);
   }
+
+
+
+
+
+
+  // лайк и дизлайк
+  likeCard(cardId) {
+    return fetch(`${this._address}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+
+  dislikeCard(cardId) {
+    return fetch(`${this._address}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+
+
 
 } 
 

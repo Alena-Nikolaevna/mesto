@@ -26,19 +26,33 @@ import {profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
 
 /************************************************************************* */
+
+
+// API лайк и дизлайк карточки
+const handleLikeCard = (card) => {
+  api.likeCard(card._cardId)
+  .then((res) => {
+    card.toggleLike();
+    cardCountLike.textContent = res.likes.length;
+  })
+  .catch((err) => { console.log(err) });
+};
+
+const handleDislikeCard = (card) => {
+  api.dislikeCard(card._cardId)
+  .then((res) => {
+    card.toggleLike();
+    cardCountLike.textContent = res.likes.length;
+  })
+  .catch((err) => { console.log(err) });
+};
+
+
+////////////////
 //ПОПАП удаления карточки
 
-/*const buttonCardDelete = document.querySelector('card__delete-bt'); 
-const popupTypeConfirm = document.querySelector('popup_type_confirm');
-buttonCardDelete.addEventListener('click', openPopupTypeConfirm);
-
-
-function openPopupTypeConfirm() {
-  popupTypeConfirm.open();
-}
-
-const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
-popupTypeConfirm.setEventListeners();*/
+const buttonCardDelete = document.querySelector('.card__delete-bt'); 
+//const popupTypeConfirm = document.querySelector('popup_type_confirm');
 
 /////
 const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
@@ -72,7 +86,7 @@ const createCard = (...args) => {
 
 //функция появления карточки
 const renderCard = (element) => {
-  const card = createCard(element, '#card-template', handleCardClick);
+  const card = createCard(element, '#card-template', handleCardClick, handleLikeCard, handleDislikeCard);
   itemsCardList.addItem(card);
 }
 
@@ -101,6 +115,8 @@ function openPopupTypeAddProfile() {
 function openPopupTypeAvatar() {
   newPopupTypeAvatar.open();
 }
+
+
 /************************************************************************** */
 
 /////////////////////////
@@ -126,7 +142,6 @@ function handleFormSubmitAvatar(item) {
   .then((res) => { user.setUserInfo(res) })
   .catch((error) => console.log(`Ошибка: ${error}`));
 }
-
 
 /********************************************************************************** */
 
@@ -167,6 +182,19 @@ newPopupTypeAvatar.setEventListeners();
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
-buttonAvatar.addEventListener('click', openPopupTypeAvatar); //всё ломается сразу
-console.log(newPopupTypeAvatar);
+buttonAvatar.addEventListener('click', openPopupTypeAvatar);
+
+/////////////////////////////
+
+//попап удаления
+/*function openPopupTypeConfirm() {
+  popupTypeConfirm.open();
+}
+
+const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
+popupTypeConfirm.setEventListeners();
+buttonCardDelete.addEventListener('click', openPopupTypeConfirm);*/
+
+
+
 
