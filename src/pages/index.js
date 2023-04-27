@@ -122,8 +122,8 @@ function handleFormSubmitAdd(data) {
 /***************************************** */
 // апи-аватар
 function handleFormSubmitAvatar(item) {
-  api.patchUserAvatar(item)
-  .then((res) => { user.setUserAvatar(res) })
+   api.patchUserAvatar(item)
+  .then((res) => { user.setUserInfo(res) })
   .catch((error) => console.log(`Ошибка: ${error}`));
 }
 
