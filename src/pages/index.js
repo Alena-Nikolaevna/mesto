@@ -49,10 +49,10 @@ function handleDeleteClick(card) {
   popupTypeConfirm.open();
   popupTypeConfirm.handleSubmit(() => {
     renderLoading(true, popupConfirm.querySelector('.popup__form-button-submit'));
-    api.deleteCard(card._cardId)
+    api.deleteCard(card.cardId)
   .then((res) => { 
     if (res.ok) {
-      card.deleteCard();
+      deleteCard();
      popupTypeConfirm.close();
     }
   })
@@ -244,7 +244,7 @@ buttonAvatar.addEventListener('click', openPopupTypeAvatar);
 
 
 //попап удаления карточки
-const popupTypeConfirm = new PopupWithConfirm('.popup_type_confirm');
+const popupTypeConfirm = new PopupWithConfirm({popupSelector: '.popup_type_confirm'});
 popupTypeConfirm.setEventListeners();
 
 
