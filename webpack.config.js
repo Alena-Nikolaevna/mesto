@@ -59,7 +59,8 @@ module.exports = {
           }),
           new CleanWebpackPlugin(), // использовали плагин
           new MiniCssExtractPlugin() // подключение плагина для объединения файлов
-    ] 
+    ],
+    devtool: "source-map",
 };
 
 // module.exports — это синтаксис экспорта в Node.js 
