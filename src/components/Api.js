@@ -4,6 +4,7 @@ class Api {
     this._headers = setting.headers;
   }
 
+  // ф-ция проверки результата
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
@@ -11,7 +12,7 @@ class Api {
     return Promise.reject(res.status);
   }
 
-  //загружаем информацию о пользователе с сервера
+  // загружаем информацию о пользователе с сервера
   getUserInfo() { 
     return fetch(`${this._address}/users/me`, { 
       method: "GET", 
@@ -19,16 +20,14 @@ class Api {
     }).then(this._checkResponse);
   }
 
-
-  //получить список всех карточек в виде массива (GET)
-  //Загружаем карточки с сервера
+  // получить список всех карточек в виде массива (GET)
+  // загружаем карточки с сервера
   getInitialCards() {
     return fetch(`${this._address}/cards`, {
       method: "GET",
       headers: this._headers,
     }).then(this._checkResponse);
   }
-
 
     // отправляем/сохраняем данные пользователя на сервер 
   // заменяем данные пользователя
@@ -44,8 +43,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-
-  //Добавление новой карточки
+  // добавление новой карточки
   createNewCard(data) {
     return fetch(`${this._address}/cards`, {
       method: "POST",
@@ -57,14 +55,13 @@ class Api {
     }).then(this._checkResponse);
   }
 
-// удаление карточки
+  // удаление карточки
   deleteCard(cardId) {
     return fetch(`${this._address}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._checkResponse);
   }
-
 
   // аватар
   patchUserAvatar(item) {
@@ -77,12 +74,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-
-
-
-
-
-  // лайк и дизлайк
+  // лайк
   likeCard(cardId) {
     return fetch(`${this._address}/cards/${cardId}/likes`, {
       method: "PUT",
@@ -90,6 +82,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
+  // удаление лайка/дизлайк
   dislikeCard(cardId) {
     return fetch(`${this._address}/cards/${cardId}/likes`, {
       method: "DELETE",
@@ -97,10 +90,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-
-
-} 
-
+}
 
 export const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
@@ -108,9 +98,7 @@ export const api = new Api({
     authorization: 'cb45d759-f4af-4749-b096-7ca0c6bdc881',
     'Content-Type': 'application/json'
   }
-}); 
-
-
+});
 
 /*- получить список всех карточек в виде массива (GET) +
 - добавить карточку (POST)

@@ -12,7 +12,7 @@ export default class UserInfo {
         return {
             name: this._name.textContent,
             about: this._about.textContent,
-          };
+        };
     }
 
     setUserInfo({name, about, avatar, id}) {  //метод, который принимает новые данные пользователя и добавляет их на страницу
@@ -21,12 +21,4 @@ export default class UserInfo {
         this._avatar.src = avatar;
         this._userId = id;
     }
-
-    /*getUserId() {
-      return this._userId;
-    }*/
-
-     /* setUserAvatar(item) {
-        this._avatar.src = item.link;
-      }*/
 }

@@ -75,8 +75,6 @@ export default class FormValidator {
 
     }*/
 
-
-
     _setEventListeners() {
 
       this._formElement.addEventListener('reset', () => { // собыите `reset` происходит когда вызывается `reset` у формы

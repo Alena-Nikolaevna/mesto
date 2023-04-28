@@ -6,10 +6,8 @@ export default class Card {
  constructor(data, templateSelector, handleCardClick, handleLikeCard, handleDislikeCard, handleDeleteClick, userId) {
    // text и image — приватные поля, они нужны только внутри класса
 
-
    this._link = data.link;
    this._name = data.name;
-
    this._likes = data.likes;
    this._userId = userId;
    this._ownerId = data.owner._id;
@@ -35,18 +33,15 @@ export default class Card {
      this._cardImage = cardElement.querySelector('.card__image'); // "кнопка"-открытие попап изображения по клику на изображение карточки
 
      this._cardCountLike = cardElement.querySelector('.card__count-like'); //кнопка колич-ва лайков
-
-     
      this._cardCountLike.textContent = this._likes.length;
 
      if (
       this._likes.filter((like) => like._id === this._userId)
         .length > 0
-    ) {
+     ) {
       this._like.classList.add("card__like-bt_active");
-    }
+     }
    
-
    return cardElement;
  }
 
@@ -54,7 +49,6 @@ export default class Card {
  generateCard() {
    this._element = this._getTemplate();
 
-   
    this._setEventListeners();
    this._isOwner(); // проверяем id того кто добавил карточку со своим
 
@@ -64,7 +58,6 @@ export default class Card {
 
    return this._element;
  }
-
 
  // создаём метод кнопки удаления
   deleteCard() {
@@ -80,12 +73,10 @@ export default class Card {
     } else {
       this._handleLikeCard(this);
     }
-  });
-
+ });
 
    //обработчик кнопки удаления карточки
    this._cardDelete.addEventListener('click', () => {
-     //this._deleteCard();
      this._handleDeleteClick(this);
    });
 
@@ -97,13 +88,13 @@ export default class Card {
 
  // переключатель лайков
  toggleLike() {
-  this._like.classList.toggle('card__like-bt_active');
-}
+   this._like.classList.toggle('card__like-bt_active');
+ }
 
-_isOwner() {
-  if (this._ownerId !== this._userId) {
-    this._cardDelete.remove();
-  }
-}
+ _isOwner() {
+   if (this._ownerId !== this._userId) {
+     this._cardDelete.remove();
+   }
+ }
 
 }

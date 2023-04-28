@@ -15,13 +15,22 @@ export const elementsCards = document.querySelector('.elements');
 
 /************************************************************************ */
 
-
 // добавление карточки через попап(новое место)
 export const formElementAdd = document.querySelector('.popup__form-edit-container_add'); //2
 export const imageNameInput = formElementAdd.querySelector('.popup__form-item_type_name');
 export const linkInput = formElementAdd.querySelector('.popup__form-item_type_job');
 
 /************************************************************************* */
+export const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
+export const buttonAvatar = document.querySelector('.profile__avatar');
+
+// для ф-ции renderLoading
+export const popupAvatarForm = document.querySelector('.popup_type_avatar');
+export const popupConfirm  = document.querySelector('.popup_type_confirm');
+export const popupAdd = document.querySelector('.popup_type_add-profile');
+export const popupEdit = document.querySelector('.popup_type_edit-profile');
+
+/******************************************************************************** */
 
 //const contentPopupImage = document.querySelector('.popup__content');
 //export const fullImagePopup = contentPopupImage.querySelector('.popup__image'); //PopupWithImage

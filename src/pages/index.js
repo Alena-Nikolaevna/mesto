@@ -16,50 +16,42 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 import { api } from '../components/Api.js';
+import renderLoading from '../utils/renderLoading.js';
 
-//import renderLoading from '../utils/constants.js';
-
-import {initialCards} from '../utils/initialCards.js';
+//import {initialCards} from '../utils/initialCards.js';
 import {validationContainer} from '../utils/validationContainer.js';
 
 import {profileName, profileJob, nameInput, jobInput, formElementAdd, 
-  elementsCards, formElementEdit, profileEditButton, profileAddButton} from '../utils/constants.js';
+  elementsCards, formElementEdit, profileEditButton, profileAddButton,
+  formElementAvatar, buttonAvatar, popupAvatarForm, popupConfirm,
+  popupAdd, popupEdit} from '../utils/constants.js';
 
 /************************************************************************* */
-function renderLoading (isLoading, button) {
-  if (isLoading) {
-      if (button.textContent.length >= 9) {
-          button.textContent = 'Сохранение...';
-      } else {
-          button.textContent = 'Создание...';
-      }
+let userId;
 
-  } else {
-      if (button.textContent.length >= 12) {
-          button.textContent = 'Сохранить';
-      } else {
-          button.textContent = 'Создать';
-      }
-  }
-}
+//достаем данные о пользователе и установим эти данные в нужных полях
+api.getUserInfo()
+.then((res) => { 
+  userId = res._id;
+  user.setUserInfo(res) })
+.catch((error) => console.log(`Ошибка: ${error}`))
 
+// достаем данные карточек с сервера
+api.getInitialCards()
+.then((res) => {
+  //console.log('результат', res)
+  itemsCardList.renderItems(res); // res - это данные с сервера, в данном случае - массив карточек
+ 
+})
+.catch((error) => console.log(`Ошибка: ${error}`))
 
-
-/*function renderLoading(isLoading) {
-  if(isLoading) {
-    button.textContent = 'Сохранение...';
-  } else {
-    button.textContent = 'Сохранить';
-  }
-}*/
-/////******************************************** */
-
+/********************************************** */
+// API удаление карточки через попап
 function handleDeleteClick(card) {
-  console.log('asss', card);
   popupTypeConfirm.open();
   popupTypeConfirm.handleSubmit(() => {
-    renderLoading(true, popupConfirm.querySelector('.popup__form-button-submit'));
-    api.deleteCard(card._cardId)
+  renderLoading(true, popupConfirm.querySelector('.popup__form-button-submit'));
+  api.deleteCard(card._cardId)
   .then(() => { 
       card.deleteCard();
      popupTypeConfirm.close();
@@ -68,8 +60,6 @@ function handleDeleteClick(card) {
   .finally(() => renderLoading(false, popupConfirm.querySelector('.popup__form-button-submit')));
   })
 };
-
-
 
 // API лайк и дизлайк карточки
 const handleLikeCard = (card) => {
@@ -90,40 +80,12 @@ const handleDislikeCard = (card) => {
   .catch((err) => { console.log(err) });
 };
 
-
-////////////////
-//const buttonCardDelete = document.querySelector('.card__delete-bt'); 
-//const popupTypeConfirm = document.querySelector('popup_type_confirm');
-
-/////
-const formElementAvatar = document.querySelector('.popup__form-edit-container_avatar');
-const buttonAvatar = document.querySelector('.profile__avatar');
-//////////////////////////
-//достаем данные о пользователе и установим эти данные в нужных полях
-let userId;
-api.getUserInfo()
-.then((res) => { 
-  userId = res._id;
-  user.setUserInfo(res) })
-.catch((error) => console.log(`Ошибка: ${error}`))
-
-
-api.getInitialCards()
-.then((res) => {
-  //console.log('результат', res)
-  itemsCardList.renderItems(res); // res - это данные с сервера, в данном случае - массив карточек
- 
-})
-.catch((error) => console.log(`Ошибка: ${error}`))
-
-/********************************************** */
-
+/************************************************** */
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 /************************************************* */
-//cоздаем карточку  с помощью класса
-
+//cоздаем карточку с помощью класса
 const createCard = (...args) => {
   return new Card(...args).generateCard();
 }
@@ -148,7 +110,6 @@ function openpopupTypeEditProfile() {
   const userObject = user.getUserInfo();
   nameInput.value = userObject.name;
   jobInput.value = userObject.about;
-
   newPopupTypeEditProfile.open();
 }
 
@@ -166,30 +127,14 @@ function openPopupTypeAvatar() {
 }*/
 /************************************************************************** */
 
-
-
-const popupAvatarForm = document.querySelector('.popup_type_avatar');
-
-const popupConfirm  = document.querySelector('.popup_type_confirm');
-
-const popupAdd = document.querySelector('.popup_type_add-profile');
-
-const popupEdit = document.querySelector('.popup_type_edit-profile');
-
-
-
-
-
-/////////////////////////
 //ф-ция редактирования профиля(сохранить информацию)
 function handleFormSubmitEdit(data) { 
  //user.setUserInfo(name, about);
- renderLoading(true, popupEdit.querySelector('.popup__form-button-submit'));
+  renderLoading(true, popupEdit.querySelector('.popup__form-button-submit'));
   api.patchUserInfo(data)
-   .then((res) => { user.setUserInfo(res) })
-   .catch((error) => console.log(`Ошибка: ${error}`))
-   .finally(() => renderLoading(false, popupEdit.querySelector('.popup__form-button-submit')));
-   
+  .then((res) => { user.setUserInfo(res) })
+  .catch((error) => console.log(`Ошибка: ${error}`))
+  .finally(() => renderLoading(false, popupEdit.querySelector('.popup__form-button-submit')));
  }
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
@@ -205,7 +150,7 @@ function handleFormSubmitAdd(data) {
 // апи-аватар
 function handleFormSubmitAvatar(item) {
   renderLoading(true, popupAvatarForm.querySelector('.popup__form-button-submit'));
-   api.patchUserAvatar(item)
+  api.patchUserAvatar(item)
   .then((res) => { user.setUserInfo(res) })
   .catch((error) => console.log(`Ошибка: ${error}`))
   .finally(() => renderLoading(false, popupAvatarForm.querySelector('.popup__form-button-submit')));
@@ -215,7 +160,6 @@ function handleFormSubmitAvatar(item) {
 
 const newFormElementEdit = new FormValidator(validationContainer, formElementEdit); //1
 newFormElementEdit.enableValidation();
-
 
 const newFormElementAdd = new FormValidator(validationContainer, formElementAdd); //2
 newFormElementAdd.enableValidation();
@@ -236,25 +180,18 @@ newPopupTypeEditProfile.setEventListeners();
 const newPopupTypeAddProfile = new PopupWithForm ('.popup_type_add-profile', handleFormSubmitAdd);
 newPopupTypeAddProfile.setEventListeners();
 
-
-/****************************************** */
-
-//ПОПАП АВАТАРА
+/* экземпляр класса PopupWithForm - попап-форма аватара*/
 const newPopupTypeAvatar = new PopupWithForm ('.popup_type_avatar', handleFormSubmitAvatar);
 newPopupTypeAvatar.setEventListeners();
 
+/* экземпляр класса PopupWithConfirm - попап-форма удаления карточки*/
+const popupTypeConfirm = new PopupWithConfirm({popupSelector: '.popup_type_confirm'});
+popupTypeConfirm.setEventListeners();
+
+/****************************************** */
 
 profileEditButton.addEventListener('click', openpopupTypeEditProfile);
 profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 buttonAvatar.addEventListener('click', openPopupTypeAvatar);
 
 /////////////////////////////
-
-
-//попап удаления карточки
-const popupTypeConfirm = new PopupWithConfirm({popupSelector: '.popup_type_confirm'});
-popupTypeConfirm.setEventListeners();
-
-
-
-
