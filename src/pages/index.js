@@ -60,11 +60,9 @@ function handleDeleteClick(card) {
   popupTypeConfirm.handleSubmit(() => {
     renderLoading(true, popupConfirm.querySelector('.popup__form-button-submit'));
     api.deleteCard(card._cardId)
-  .then((res) => { 
-    if (res.ok) {
-      card.userId.deleteCard();
+  .then(() => { 
+      card.deleteCard();
      popupTypeConfirm.close();
-    }
   })
   .catch((error) => console.log(`Ошибка: ${error}`))
   .finally(() => renderLoading(false, popupConfirm.querySelector('.popup__form-button-submit')));
