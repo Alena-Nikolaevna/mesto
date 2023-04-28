@@ -86,7 +86,7 @@ export default class Card {
    //обработчик кнопки удаления карточки
    this._cardDelete.addEventListener('click', () => {
      //this._deleteCard();
-     this._handleDeleteClick(this._userId);
+     this._handleDeleteClick(this);
    });
 
    //обработчик открытия попап-изображения по клику на карточку

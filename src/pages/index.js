@@ -43,16 +43,26 @@ function renderLoading (isLoading, button) {
   }
 }
 
+
+
+/*function renderLoading(isLoading) {
+  if(isLoading) {
+    button.textContent = 'Сохранение...';
+  } else {
+    button.textContent = 'Сохранить';
+  }
+}*/
 /////******************************************** */
 
 function handleDeleteClick(card) {
+  console.log('asss', card);
   popupTypeConfirm.open();
   popupTypeConfirm.handleSubmit(() => {
     renderLoading(true, popupConfirm.querySelector('.popup__form-button-submit'));
-    api.deleteCard(card.cardId)
+    api.deleteCard(card._cardId)
   .then((res) => { 
     if (res.ok) {
-      deleteCard();
+      card.userId.deleteCard();
      popupTypeConfirm.close();
     }
   })
