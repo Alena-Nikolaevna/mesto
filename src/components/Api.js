@@ -1,6 +1,6 @@
 class Api {
   constructor(setting) {
-    this._address = setting.baseUrl; 
+    this._address = setting.baseUrl;
     this._headers = setting.headers;
   }
 
@@ -13,10 +13,10 @@ class Api {
   }
 
   // загружаем информацию о пользователе с сервера
-  getUserInfo() { 
-    return fetch(`${this._address}/users/me`, { 
-      method: "GET", 
-      headers: this._headers, 
+  getUserInfo() {
+    return fetch(`${this._address}/users/me`, {
+      method: "GET",
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -29,7 +29,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-    // отправляем/сохраняем данные пользователя на сервер 
+  // отправляем/сохраняем данные пользователя на сервер 
   // заменяем данные пользователя
   patchUserInfo(data) {
     return fetch(`${this._address}/users/me/`, {

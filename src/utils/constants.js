@@ -25,10 +25,10 @@ export const formElementAvatar = document.querySelector('.popup__form-edit-conta
 export const buttonAvatar = document.querySelector('.profile__avatar');
 
 // для ф-ции renderLoading
-export const popupAvatarForm = document.querySelector('.popup_type_avatar');
-export const popupConfirm  = document.querySelector('.popup_type_confirm');
-export const popupAdd = document.querySelector('.popup_type_add-profile');
-export const popupEdit = document.querySelector('.popup_type_edit-profile');
+export const popupAvatarForm = document.querySelector('.popup_type_avatar').querySelector('.popup__form-button-submit');
+export const popupConfirmForm  = document.querySelector('.popup_type_confirm').querySelector('.popup__form-button-submit');
+export const popupAddForm = document.querySelector('.popup_type_add-profile').querySelector('.popup__form-button-submit');
+export const popupEditForm = document.querySelector('.popup_type_edit-profile').querySelector('.popup__form-button-submit');
 
 /******************************************************************************** */
 

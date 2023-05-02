@@ -19,65 +19,66 @@ import { api } from '../components/Api.js';
 import renderLoading from '../utils/renderLoading.js';
 
 //import {initialCards} from '../utils/initialCards.js';
-import {validationContainer} from '../utils/validationContainer.js';
+import { validationContainer } from '../utils/validationContainer.js';
 
-import {profileName, profileJob, nameInput, jobInput, formElementAdd, 
+import {
+  profileName, profileJob, nameInput, jobInput, formElementAdd,
   elementsCards, formElementEdit, profileEditButton, profileAddButton,
-  formElementAvatar, buttonAvatar, popupAvatarForm, popupConfirm,
-  popupAdd, popupEdit} from '../utils/constants.js';
+  formElementAvatar, buttonAvatar, popupAvatarForm, popupConfirmForm,
+  popupAddForm, popupEditForm
+} from '../utils/constants.js';
 
 /************************************************************************* */
 let userId;
 
-//достаем данные о пользователе и установим эти данные в нужных полях
-api.getUserInfo()
-.then((res) => { 
-  userId = res._id;
-  user.setUserInfo(res) })
-.catch((error) => console.log(`Ошибка: ${error}`))
-
+/************************************************************** */
+// API информация с сервера:
+//достаем данные о пользователе и установим эти данные в нужных полях и
 // достаем данные карточек с сервера
-api.getInitialCards()
-.then((res) => {
-  //console.log('результат', res)
-  itemsCardList.renderItems(res); // res - это данные с сервера, в данном случае - массив карточек
- 
-})
-.catch((error) => console.log(`Ошибка: ${error}`))
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
+  .then(([userData, cards]) => {
+    // тут установка данных пользователя
+    userId = userData._id;
+    user.setUserInfo(userData);
+    // тут отрисовка карточек
+    itemsCardList.renderItems(cards);
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))
 
 /********************************************** */
 // API удаление карточки через попап
 function handleDeleteClick(card) {
   popupTypeConfirm.open();
   popupTypeConfirm.handleSubmit(() => {
-  renderLoading(true, popupConfirm.querySelector('.popup__form-button-submit'));
-  api.deleteCard(card._cardId)
-  .then(() => { 
-      card.deleteCard();
-     popupTypeConfirm.close();
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`))
-  .finally(() => renderLoading(false, popupConfirm.querySelector('.popup__form-button-submit')));
+    //renderLoading(true, popupConfirmForm);
+    api.deleteCard(card._cardId)
+      .then(() => {
+        card.deleteCard();
+        popupTypeConfirm.close();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+    //.finally(() => renderLoading(false, popupConfirmForm));
   })
 };
 
 // API лайк и дизлайк карточки
 const handleLikeCard = (card) => {
-  api.likeCard(card._cardId)
-  .then((res) => {
-    card.toggleLike();
-    card._cardCountLike.textContent = res.likes.length;
-  })
-  .catch((err) => { console.log(err) });
+  api.likeCard(card.receiveId())
+    .then((res) => {
+      card.toggleLike();
+      card.updateLikesCount(res);
+    })
+    .catch((err) => { console.log(err) });
 };
 
 const handleDislikeCard = (card) => {
-  api.dislikeCard(card._cardId)
-  .then((res) => {
-    card.toggleLike();
-    card._cardCountLike.textContent = res.likes.length;
-  })
-  .catch((err) => { console.log(err) });
+  api.dislikeCard(card.receiveId())
+    .then((res) => {
+      card.toggleLike();
+      card.updateLikesCount(res);
+    })
+    .catch((err) => { console.log(err) });
 };
 
 /************************************************** */
@@ -98,12 +99,12 @@ const renderCard = (element) => {
 
 /************************************************************ */
 // экземпляр класса Section, который отвечает за отрисовку элементов на странице
-const itemsCardList = new Section({renderer: renderCard}, elementsCards);
+const itemsCardList = new Section({ renderer: renderCard }, elementsCards);
 //itemsCardList.renderItems();
 
 /************************************************************ */
 // экземпляр класса UserInfo - отвечает за управление отображением информации о пользователе на странице
-const user = new UserInfo({nameSelector: profileName, aboutSelector: profileJob, avatarSelector: buttonAvatar});
+const user = new UserInfo(profileName, profileJob, buttonAvatar);
 
 /************************************* */
 function openpopupTypeEditProfile() {
@@ -128,32 +129,41 @@ function openPopupTypeAvatar() {
 /************************************************************************** */
 
 //ф-ция редактирования профиля(сохранить информацию)
-function handleFormSubmitEdit(data) { 
- //user.setUserInfo(name, about);
-  renderLoading(true, popupEdit.querySelector('.popup__form-button-submit'));
+function handleFormSubmitEdit(data) {
+  //user.setUserInfo(name, about);
+  renderLoading(true, popupEditForm);
   api.patchUserInfo(data)
-  .then((res) => { user.setUserInfo(res) })
-  .catch((error) => console.log(`Ошибка: ${error}`))
-  .finally(() => renderLoading(false, popupEdit.querySelector('.popup__form-button-submit')));
- }
+    .then((res) => {
+      user.setUserInfo(res);
+      newPopupTypeEditProfile.close();
+    })
+    .catch((error) => console.log(`Ошибка: ${error}`))
+    .finally(() => renderLoading(false, popupEditForm));
+}
 /********************************************************************************** */
 //ф-ция добавления карточки через попап-форму
 function handleFormSubmitAdd(data) {
   //renderCard(item);
-  renderLoading(true, popupAdd.querySelector('.popup__form-button-submit'));
+  renderLoading(true, popupAddForm);
   api.createNewCard(data)
-  .then((res) => {renderCard(res)})
-  .catch((error) => console.log(`Ошибка: ${error}`))
-  .finally(() => renderLoading(false, popupAdd.querySelector('.popup__form-button-submit')));
+    .then((res) => {
+      renderCard(res);
+      newPopupTypeAddProfile.close();
+    })
+    .catch((error) => console.log(`Ошибка: ${error}`))
+    .finally(() => renderLoading(false, popupAddForm));
 }
 /***************************************** */
 // апи-аватар
 function handleFormSubmitAvatar(item) {
-  renderLoading(true, popupAvatarForm.querySelector('.popup__form-button-submit'));
+  renderLoading(true, popupAvatarForm);
   api.patchUserAvatar(item)
-  .then((res) => { user.setUserInfo(res) })
-  .catch((error) => console.log(`Ошибка: ${error}`))
-  .finally(() => renderLoading(false, popupAvatarForm.querySelector('.popup__form-button-submit')));
+    .then((res) => {
+      user.setUserInfo(res);
+      newPopupTypeAvatar.close();
+    })
+    .catch((error) => console.log(`Ошибка: ${error}`))
+    .finally(() => renderLoading(false, popupAvatarForm));
 }
 
 /********************************************************************************** */
@@ -169,23 +179,23 @@ newFormElementAvatar.enableValidation();
 
 
 /* экземпляр класса PopupWithImage - попап просмотра изображения */
-const popupWithImage  = new PopupWithImage('.popup_type_image');
+const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
 
 /* экземпляр класса PopupWithForm - попап-форма редактирования профиля*/
-const newPopupTypeEditProfile  = new PopupWithForm ('.popup_type_edit-profile', handleFormSubmitEdit);
+const newPopupTypeEditProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmitEdit);
 newPopupTypeEditProfile.setEventListeners();
 
 /* экземпляр класса PopupWithForm - попап-форма добавления карточки*/
-const newPopupTypeAddProfile = new PopupWithForm ('.popup_type_add-profile', handleFormSubmitAdd);
+const newPopupTypeAddProfile = new PopupWithForm('.popup_type_add-profile', handleFormSubmitAdd);
 newPopupTypeAddProfile.setEventListeners();
 
 /* экземпляр класса PopupWithForm - попап-форма аватара*/
-const newPopupTypeAvatar = new PopupWithForm ('.popup_type_avatar', handleFormSubmitAvatar);
+const newPopupTypeAvatar = new PopupWithForm('.popup_type_avatar', handleFormSubmitAvatar);
 newPopupTypeAvatar.setEventListeners();
 
 /* экземпляр класса PopupWithConfirm - попап-форма удаления карточки*/
-const popupTypeConfirm = new PopupWithConfirm({popupSelector: '.popup_type_confirm'});
+const popupTypeConfirm = new PopupWithConfirm({ popupSelector: '.popup_type_confirm' });
 popupTypeConfirm.setEventListeners();
 
 /****************************************** */
@@ -195,3 +205,21 @@ profileAddButton.addEventListener('click', openPopupTypeAddProfile);
 buttonAvatar.addEventListener('click', openPopupTypeAvatar);
 
 /////////////////////////////
+/******************************************************** */
+
+//достаем данные о пользователе и установим эти данные в нужных полях
+/*api.getUserInfo()
+  .then((res) => {
+    userId = res._id;
+    user.setUserInfo(res)
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))*/
+
+// достаем данные карточек с сервера
+/*api.getInitialCards()
+  .then((res) => {
+    //console.log('результат', res)
+    itemsCardList.renderItems(res); // res - это данные с сервера, в данном случае - массив карточек
+
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))*/
